@@ -1,0 +1,6 @@
+# pip-tools
+*.in
+
+# vim swap files
+*.swp
+*.swo
