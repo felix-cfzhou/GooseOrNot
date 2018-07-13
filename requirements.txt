@@ -10,6 +10,7 @@ click==6.7                # via flask
 flask-migrate==2.2.1
 flask-sqlalchemy==2.3.2
 flask==1.0.2
+gunicorn==19.9.0
 itsdangerous==0.24        # via flask
 jinja2==2.10              # via flask
 mako==1.0.7               # via alembic
