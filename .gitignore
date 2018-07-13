@@ -7,3 +7,6 @@
 
 # python cache
 __pycache__/*
+
+# direnv variables
+.envrc
