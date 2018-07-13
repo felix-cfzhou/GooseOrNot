@@ -6,7 +6,7 @@ class Config(object):
     DEBUG = False
     TESTING = False
     CSRF_ENABLED = True
-    SECRET_KEY = 'this-will-be-changed' # TODO: changed secret key
+    SECRET_KEY = 'this-will-be-changed'  # TODO: changed secret key
 
 
 class ProductionConfig(Config):
@@ -14,6 +14,11 @@ class ProductionConfig(Config):
 
 
 class StagingConfig(Config):
+    DEVELOPMENT = True
+    DEBUG = True
+
+
+class DevelopmentConfig(Config):
     DEVELOPMENT = True
     DEBUG = True
 
