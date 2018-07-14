@@ -1,4 +1,4 @@
-"""empty message
+"""added images table
 
 Revision ID: eda34e68e78b
 Revises: 
