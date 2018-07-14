@@ -1,0 +1,9 @@
+flask
+simpleJSON
+watchdog
+gunicorn
+ipython
+psycopg2
+Flask-SQLAlchemy
+Flask-Script
+Flask-Migrate
