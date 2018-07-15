@@ -1,5 +1,5 @@
-from os import environ, path
-from flask import Blueprint, render_template, send_from_directory
+from os import path
+from flask import Blueprint, current_app, render_template, send_from_directory
 
 
 home = Blueprint('home', __name__, url_prefix='', template_folder='templates')
@@ -14,7 +14,7 @@ def show():
 def send(filename):
     return send_from_directory(
             path.join(
-                environ['PROJECT_DIR'],
+                current_app.config['BASE_DIR'],
                 "client/web-app/build/"
                 ),
             filename
