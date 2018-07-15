@@ -1,9 +1,9 @@
 from flask_script import Manager
 from flask_migrate import MigrateCommand
 
-from models.image import Image
+from server.models.image import Image
 
-from app import create_app
+from server.factory import create_app
 
 manager = Manager(create_app)
 

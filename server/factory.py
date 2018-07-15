@@ -3,8 +3,8 @@ import os
 from flask import Flask
 from flask_migrate import Migrate
 
-from database import db
-from views import home
+from server.database import db
+from server.views import home
 
 
 migrate = Migrate()
@@ -18,8 +18,3 @@ def create_app():
     migrate.init_app(app, db)
     app.register_blueprint(home)
     return app
-
-
-if __name__ == '__main__':
-    app = create_app()
-    app.run()

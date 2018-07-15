@@ -1,4 +1,4 @@
-from database import db
+from server.database import db
 
 
 class Image(db.Model):
