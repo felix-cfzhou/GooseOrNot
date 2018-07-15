@@ -6,8 +6,8 @@
 # testing
 /coverage
 
-# production
-/build
+# production we ignore only for purposes of heroku being stupid
+# /build
 
 # misc
 .DS_Store
