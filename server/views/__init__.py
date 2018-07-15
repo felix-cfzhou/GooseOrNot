@@ -12,6 +12,7 @@ def show():
 
 @home.route('/assets/<path:filename>')
 def send(filename):
+    # TODO: figure out better way of serving static files, this is ghetto af...
     return send_from_directory(
             path.join(
                 current_app.config['BASE_DIR'],
