@@ -1,9 +1,10 @@
 import * as React from 'react';
+// tslint:disable-next-line:no-var-requires
 require("./App.css")
 
 import logo from './logo.svg';
 
-class App extends React.Component {
+class App extends React.Component<{}> {
   public render() {
     return (
       <div className="App">

@@ -1,0 +1,27 @@
+{
+    "defaultSeverity": "error",
+    "extends": [
+        "tslint:recommended"
+    ],
+    "jsRules": {},
+    "rules": {
+        "object-literal-sort-keys": false,
+        "no-any": true,
+        "array-type": {
+            "options": [
+                "generic"
+            ]
+        },
+        "interface-name": {
+            "options": [
+                "never-prefix"
+            ]
+        },
+        "max-line-length": {
+            "options": [
+                128
+            ]
+        }
+    }
+    // "rulesDirectory": ["./tslint_rules"]
+}
