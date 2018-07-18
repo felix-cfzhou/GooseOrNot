@@ -65,6 +65,10 @@ I simply modified the setup for the cookie cutter starter for typescript react.
 
 Note that if you use vim as your editor and vim-syntastic, you may need to install typescript typescript-dev tslint globally.
 
+**Note**
+
+If you use vim as your main editor, I strongly advise installation of Quramy/tusquyomi client for the TSServer
+
 #### Webpack
 ## Mobile
 This would technically be my first mobile project. If there's anything you notice and wish to fix, let me know!
