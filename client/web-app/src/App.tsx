@@ -12,9 +12,20 @@ class App extends React.Component<{}> {
           <img src={logo} className="App-logo" alt="logo" />
           <h1 className="App-title">Welcome to React</h1>
         </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.tsx</code> and save to reload.
-        </p>
+        <form
+          action={"/upload/photos"}
+          method={"POST"}
+          encType={"multipart/form-data"}
+        >
+          <input
+            type={"file"}
+            name={"photo"}
+            multiple={true}
+          />
+          <input
+            type={"submit"}
+          />
+        </form>
       </div>
     );
   }
