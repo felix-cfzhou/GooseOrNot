@@ -15,6 +15,8 @@ def create_app():
     app = Flask(__name__)
     app.config.from_object(os.environ['APP_SETTINGS'])
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+    if not os.path.exists(app.config['PHOTO_UPLOAD_FOLDER']):
+        os.makedirs(app.config['PHOTO_UPLOAD_FOLDER'])
     db.init_app(app)
     migrate.init_app(app, db)
     app.register_blueprint(home)
