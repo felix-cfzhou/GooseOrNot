@@ -57,10 +57,20 @@ ipython -i -m server.scripts.interactive
 
 
 ### TensorFlow
-This project was partially inspired by Professor Andrew Ng's Deep Learning Specialization on Coursera. Definitely shoutup to him for the excellent material.
+This project was partially inspired by Professor Andrew Ng's Deep Learning Specialization on Coursera. Definitely shoutout to him for the excellent material.
 
-## Web
-### React-Typescript
+### Celery
+The celery task queue is used to process client requests to run our neural network.
+
+### SocketIO
+SocketIO is used to keep the client up to date with the progress of the request to process a photo
+
+## Client
+### React-Socket-IO
+the client for our websocket to process requests
+
+### Web
+#### React-Typescript
 I simply modified the setup for the cookie cutter starter for typescript react.
 
 Note that if you use vim as your editor and vim-syntastic, you may need to install typescript typescript-dev tslint globally.
@@ -69,14 +79,14 @@ Note that if you use vim as your editor and vim-syntastic, you may need to insta
 
 If you use vim as your main editor, I strongly advise installation of Quramy/tusquyomi client for the TSServer
 
-#### Webpack
-## Mobile
+##### Webpack
+### Mobile
 This would technically be my first mobile project. If there's anything you notice and wish to fix, let me know!
 
-### React-Native-Typescript
+#### React-Native-Typescript
 I did not use the cookie cutter for mobile since the expo platform is still a bit too raw for my taste.
 
-#### Android
+##### Android
 I am using openjdk8, jdk9 is not working for me but you are more than welcome to try :).
 
 On Archlinux. You may need to enable the multilib repository for certain dependencies.
@@ -102,7 +112,7 @@ We may need to install the android-ndk package due to gradle issues.
 
 You must also export certain paths for the android packages installed, this is trivially resolved by a google search so will not be provided here.
 
-#### iOS
+##### iOS
 I did not test anything on the iOs platform but in theory (aka never), the react-native library should run correctly.
 
 Please lookup up the react-native IOs guide if you wish to extend this project for the iOs platform.
