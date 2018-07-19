@@ -59,4 +59,4 @@ def receive():
                 responseDict[filename] = "success"
         return jsonResponse(responseDict, 200)
     else:
-        return jsonResponse(NoFile, 200)
+        return jsonResponse(NoFile, 400)
