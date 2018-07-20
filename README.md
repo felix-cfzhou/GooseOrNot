@@ -59,8 +59,10 @@ ipython -i -m server.scripts.interactive
 ### TensorFlow
 This project was partially inspired by Professor Andrew Ng's Deep Learning Specialization on Coursera. Definitely shoutout to him for the excellent material.
 
-### Celery
-The celery task queue is used to process client requests to run our neural network.
+### Redis Task Queue
+The redis task queue is used to process client requests to run our neural network.
+
+you will need to install redis or redis-server depending on your platform and run it (as a daemon)
 
 ### SocketIO
 SocketIO is used to keep the client up to date with the progress of the request to process a photo

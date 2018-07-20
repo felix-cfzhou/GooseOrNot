@@ -7,3 +7,4 @@ psycopg2
 Flask-SQLAlchemy
 Flask-Script
 Flask-Migrate
+rq

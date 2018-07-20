@@ -7,7 +7,7 @@
 alembic==0.9.10           # via flask-migrate
 argh==0.26.2              # via watchdog
 backcall==0.1.0           # via ipython
-click==6.7                # via flask
+click==6.7                # via flask, rq
 decorator==4.3.0          # via ipython, traitlets
 flask-migrate==2.2.1
 flask-script==2.0.6
@@ -32,6 +32,8 @@ pygments==2.2.0           # via ipython
 python-dateutil==2.7.3    # via alembic
 python-editor==1.0.3      # via alembic
 pyyaml==3.13              # via watchdog
+redis==2.10.6             # via rq
+rq==0.12.0
 simplegeneric==0.8.1      # via ipython
 simplejson==3.16.0
 six==1.11.0               # via prompt-toolkit, python-dateutil, traitlets
