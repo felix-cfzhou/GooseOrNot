@@ -64,6 +64,8 @@ The redis task queue is used to process client requests to run our neural networ
 
 you will need to install redis or redis-server depending on your platform and run it (as a daemon)
 
+the development redis worker is a simple script but is run as a daemon on our staging and development servers
+
 ### SocketIO
 SocketIO is used to keep the client up to date with the progress of the request to process a photo
 
