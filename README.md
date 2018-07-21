@@ -69,6 +69,13 @@ the development redis worker is a simple script but is run as a daemon on our st
 ### SocketIO
 SocketIO is used to keep the client up to date with the progress of the request to process a photo
 
+### Pytest
+The ever popular pytest module is used to test server side logic, model correctness, and what not.
+
+I would really appreciate it if anyone is willing to write more test cases.
+
+It would really help the debugging process!
+
 ## Client
 ### React-Socket-IO
 the client for our websocket to process requests
