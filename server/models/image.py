@@ -15,9 +15,15 @@ class Image(db.Model):
             nullable=False,
             unique=True
             )
-
-    def __init__(self, file_name):
-        self.file_name = file_name
+    user_id = db.Column(
+            db.Integer,
+            db.ForeignKey('users.id', name='FK_users_images')
+            )
+    timestamp = db.Column(
+            db.DateTime,
+            index=True,
+            default=db.func.now()
+            )
 
     def __repr__(self):
         return '<id {}:{}>'.format(self.id, self.file_name)

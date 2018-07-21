@@ -5,7 +5,7 @@ import redis
 import rq
 
 
-class Task(db.model):
+class Task(db.Model):
     __tablename__ = 'tasks'
 
     id = db.Column(
@@ -20,6 +20,10 @@ class Task(db.model):
             )
     description = db.Column(
             db.String()
+            )
+    user_id = db.Column(
+            db.Integer,
+            db.ForeignKey('users.id', name='FK_users_tasks')
             )
     complete = db.Column(
             db.Boolean,
