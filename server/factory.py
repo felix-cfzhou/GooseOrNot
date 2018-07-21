@@ -12,15 +12,18 @@ from server.worker import conn
 
 migrate = Migrate()
 
+
 def create_dir_if_none(folderName):
     if not os.path.exists(folderName):
         os.makedirs(folderName)
 
 
-def create_app():
+def create_app(override_config=None):
     app = Flask(__name__)
     app.config.from_object(os.environ['APP_SETTINGS'])
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+    if override_config is not None:
+        app.config.from_object(override_config)
     create_dir_if_none(app.config['PHOTO_UPLOAD_FOLDER'])
     db.init_app(app)
     migrate.init_app(app, db)

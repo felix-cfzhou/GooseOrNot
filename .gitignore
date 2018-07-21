@@ -2,8 +2,9 @@
 *.swp
 *.swo
 
-# python cache
+# python caches
 __pycache__/
+.pytest_cache/
 
 # direnv variables
 .envrc

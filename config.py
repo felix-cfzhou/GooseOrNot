@@ -29,4 +29,5 @@ class DevelopmentConfig(Config):
 
 
 class TestingConfig(Config):
+    SQLALCHEMY_DATABASE_URI = os.environ['TESTING_DATABASE_URL']
     TESTING = True
