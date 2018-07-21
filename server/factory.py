@@ -24,9 +24,11 @@ def create_app():
     create_dir_if_none(app.config['PHOTO_UPLOAD_FOLDER'])
     db.init_app(app)
     migrate.init_app(app, db)
-    app.high_queue = Queue('high', connection=conn)
-    app.default_queue = Queue('default', connection=conn)
-    app.low_queue = Queue('low', connection=conn)
+    app.task_queues = {
+            'high': Queue('high', connection=conn),
+            'default': Queue('default', connection=conn),
+            'low': Queue('low', connection=conn)
+            }
     app.register_blueprint(home)
     app.register_blueprint(upload)
     return app
