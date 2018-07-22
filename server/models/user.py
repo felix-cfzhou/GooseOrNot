@@ -1,12 +1,14 @@
 from server.database import db
+from server.login import login_manager
 from server.models.task import Task
 from server.models.image import Image
 
 from flask import current_app
+from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
 
 
-class User(db.Model):
+class User(UserMixin, db.Model):
     __tablename__ = 'users'
 
     id = db.Column(
@@ -70,3 +72,8 @@ class User(db.Model):
 
     def get_tasks_in_progress(self, name):
         return Task.query.filter_by(name=name, user_id=self.id, complete=False).all()
+
+
+@login_manager.user_loader
+def load_user(id):
+    return User.query.get(int(id))

@@ -9,6 +9,7 @@ argh==0.26.2              # via watchdog
 backcall==0.1.0           # via ipython
 click==6.7                # via flask, rq
 decorator==4.3.0          # via ipython, traitlets
+flask-login==0.4.1
 flask-migrate==2.2.1
 flask-script==2.0.6
 flask-sqlalchemy==2.3.2
