@@ -3,6 +3,7 @@ from server.models.task import Task
 from server.models.image import Image
 
 from flask import current_app
+from werkzeug.security import generate_password_hash, check_password_hash
 
 
 class User(db.Model):
@@ -46,6 +47,12 @@ class User(db.Model):
                 self.id,
                 self.username
                 )
+
+    def set_password(self, password):
+        self.password_hash = generate_password_hash(password)
+
+    def check_password(self, password):
+        return check_password_hash(self.password_hash, password)
 
     def add_image(self, file_name):
         im = Image(file_name=file_name, user_id=self.id)

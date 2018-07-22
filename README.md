@@ -25,6 +25,7 @@ I whole-heartedly recommend the direnv tool to manage environment settings.
 You will need to set
 ```bash
 DATABASE_URL=blah_blah_blah
+TESTING_DATABASE_URL=blah_blah_blah
 APP_SETTINGS=config._SOMETHING_Config
 ```
 
