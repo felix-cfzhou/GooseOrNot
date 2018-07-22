@@ -8,4 +8,6 @@ Flask-SQLAlchemy
 Flask-Script
 Flask-Migrate
 flask-login
+flask-mail
+pyjwt
 rq

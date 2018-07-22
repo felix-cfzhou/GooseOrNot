@@ -7,9 +7,11 @@
 alembic==0.9.10           # via flask-migrate
 argh==0.26.2              # via watchdog
 backcall==0.1.0           # via ipython
+blinker==1.4              # via flask-mail
 click==6.7                # via flask, rq
 decorator==4.3.0          # via ipython, traitlets
 flask-login==0.4.1
+flask-mail==0.9.1
 flask-migrate==2.2.1
 flask-script==2.0.6
 flask-sqlalchemy==2.3.2
@@ -30,6 +32,7 @@ prompt-toolkit==1.0.15    # via ipython
 psycopg2==2.7.5
 ptyprocess==0.6.0         # via pexpect
 pygments==2.2.0           # via ipython
+pyjwt==1.6.4
 python-dateutil==2.7.3    # via alembic
 python-editor==1.0.3      # via alembic
 pyyaml==3.13              # via watchdog
