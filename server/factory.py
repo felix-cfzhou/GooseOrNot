@@ -8,6 +8,7 @@ from server.database import db
 from server.views import home
 from server.views.upload import upload
 from server.login import login_manager
+from server.mail import mail
 from server.worker import conn
 
 
@@ -35,6 +36,8 @@ def create_app(override_config=None):
     migrate.init_app(app, db)
 
     login_manager.init_app(app)
+
+    mail.init_app(app)
 
     app.task_queues = {
             'high': Queue('high', connection=conn),
