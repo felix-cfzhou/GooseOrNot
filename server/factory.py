@@ -3,7 +3,6 @@ from rq import Queue
 
 from flask import Flask
 from flask_migrate import Migrate
-from flask_login import LoginManager
 
 from server.database import db
 from server.views import home
@@ -26,8 +25,6 @@ def create_app(override_config=None):
     app.config.from_object(os.environ['APP_SETTINGS'])
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
-    login_manager.init_app(app)
-
     if override_config is not None:
         app.config.from_object(override_config)
 
@@ -36,6 +33,8 @@ def create_app(override_config=None):
     db.init_app(app)
 
     migrate.init_app(app, db)
+
+    login_manager.init_app(app)
 
     app.task_queues = {
             'high': Queue('high', connection=conn),

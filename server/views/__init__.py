@@ -1,8 +1,8 @@
 from os import path
 import json
 
-from flask import Blueprint, current_app, render_template, send_from_directory, Response, request
-from flask_login import login_user
+from flask import Blueprint, current_app, render_template, send_from_directory, request
+from flask_login import login_user, current_user
 
 from server.models.user import User
 
@@ -29,7 +29,15 @@ def login():
     username = data['username']
     password = data['password']
     user = User.query.filter_by(username=username).first()
-    if user is None:
+    if current_user.is_authenticated:
+        return jsonResponse(
+                {
+                    'username': 'already logged in',
+                    'password': 'already logged in'
+                    },
+                200
+                )
+    elif user is None:
         return jsonResponse(
                 {'username': 'username does not exist'},
                 400

@@ -54,3 +54,14 @@ def test_login_correct(client, user):
             )
 
     assert(response.status_code == 200)
+
+    response = post_json(
+            client,
+            '/login',
+            {
+                'username': 'username',
+                'password': 'password',
+                }
+            )
+
+    assert(json.loads(response.data)['username'] == 'already logged in')
