@@ -3,6 +3,8 @@ from server.login import login_manager
 from server.models.task import Task
 from server.models.image import Image
 
+from time import time
+import jwt
 from flask import current_app
 from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -44,11 +46,31 @@ class User(UserMixin, db.Model):
             lazy='dynamic'
             )
 
+    @staticmethod
+    def verify_reset_password_token(token):
+        try:
+            decoded = jwt.decode(
+                    token,
+                    current_app.config['SECRET_KEY'],
+                    algorithms=['HS256']
+                    )
+            id = decoded['reset_password']
+        except:  # noqa: E722 TODO: figure out excepction thrown and catch it
+            return
+        return User.query.get(id)
+
     def __repr__(self):
         return '<User {}:{}>'.format(
                 self.id,
                 self.username
                 )
+
+    def get_reset_password_token(self, expires_in=3000):
+        return jwt.encode(
+                {'reset_password': self.id, 'exp': time() + expires_in},
+                current_app.config['SECRET_KEY'],
+                algorithm='HS256'
+                ).decode('utf-8')
 
     def set_password(self, password):
         self.password_hash = generate_password_hash(password)

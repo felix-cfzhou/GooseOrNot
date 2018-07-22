@@ -18,6 +18,7 @@ class Config(object):
     MAIL_USERNAME = 'gooseornot'
     MAIL_PASSWORD = 'waterlooCS'
     MAIL_DEFAULT_SENDER = 'gooseornot@gmail.com'
+    SERVER_NAME = os.environ['SERVER_NAME']
 
 
 class ProductionConfig(Config):

@@ -13,4 +13,5 @@ def send_email(subject, recipients, text_body, sender=None, html_body=None):
             body=text_body,
             html=html_body,
             )
+
     mail.send(msg)

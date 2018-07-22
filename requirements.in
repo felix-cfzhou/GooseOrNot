@@ -9,5 +9,6 @@ Flask-Script
 Flask-Migrate
 flask-login
 flask-mail
+flask-wtf
 pyjwt
 rq

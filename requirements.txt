@@ -15,6 +15,7 @@ flask-mail==0.9.1
 flask-migrate==2.2.1
 flask-script==2.0.6
 flask-sqlalchemy==2.3.2
+flask-wtf==0.14.2
 flask==1.0.2
 gunicorn==19.9.0
 ipython-genutils==0.2.0   # via traitlets
@@ -46,3 +47,4 @@ traitlets==4.3.2          # via ipython
 watchdog==0.8.3
 wcwidth==0.1.7            # via prompt-toolkit
 werkzeug==0.14.1          # via flask
+wtforms==2.2.1            # via flask-wtf
