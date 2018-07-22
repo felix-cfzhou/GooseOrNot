@@ -1,11 +1,11 @@
 from os import path
 import uuid
-import json
 
-from flask import Blueprint, Response, current_app, request
+from flask import Blueprint, current_app, request
 from werkzeug.utils import secure_filename
 from server.models.image import Image
 from server.database import db
+from server.views import jsonResponse
 
 
 upload = Blueprint('upload', __name__, url_prefix='/upload')
@@ -26,23 +26,24 @@ def allowed_file(filename):
             filename.rsplit('.', 1)[1].lower() in IMAGES
 
 
-NoFile = {"error": "no files uploaded"}
-
-
-def jsonResponse(dictionary, status_code):
-    return Response(json.dumps(dictionary), status_code)
+NoFile = {"upload": "no files uploaded"}
 
 
 @upload.route('/photos', methods=['POST'])
 def receive():
     if 'photo' in request.files:
-        responseDict = {}
         for file in request.files.getlist('photo'):
             filename = file.filename
             if filename == '':
-                responseDict[filename] = "not a photo"
+                return jsonResponse(
+                        {'upload': 'not a photo'},
+                        400
+                        )
             elif not allowed_file(filename):
-                responseDict[filename] = "file type not allowed"
+                return jsonResponse(
+                        {'upload': 'file type not allowed'},
+                        400
+                        )
             else:
                 clean_name = secure_filename(file.filename)
                 unique_name = str(uuid.uuid4()) + clean_name
@@ -56,7 +57,9 @@ def receive():
                     session.add(image)
                     # TODO: investigate whether this is actually ideal
                     session.commit()
-                responseDict[filename] = "success"
-        return jsonResponse(responseDict, 200)
+                return jsonResponse(
+                        {'upload': 'success'},
+                        200
+                        )
     else:
         return jsonResponse(NoFile, 400)

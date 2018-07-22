@@ -28,6 +28,13 @@ def app(request):
 
 
 @pytest.fixture(scope='session')
+def client(app):
+    client = app.test_client()
+
+    return client
+
+
+@pytest.fixture(scope='session')
 def db(app, request):
     '''Session-wide test database'''
 
@@ -59,3 +66,12 @@ def session(db, request):
 
     request.addfinalizer(teardown)
     return session
+
+
+@pytest.fixture(scope='session')
+def user(session):
+    user = User(username='username', email='example@example.com')
+    user.set_password('password')
+    session.add(user)
+    session.commit()
+    return user
