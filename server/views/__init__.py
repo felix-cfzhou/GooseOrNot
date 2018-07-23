@@ -7,6 +7,7 @@ from flask_login import login_user, logout_user, current_user
 from server.models.user import User
 from server.views.forms.login import LoginForm
 from server.views.forms.reset_password import ResetPasswordForm
+from server.views.forms.register import RegistrationForm
 from server.mail.password_reset import send_password_reset_email
 from server.database import db
 
@@ -49,6 +50,20 @@ def login():
 def logout():
     logout_user()
     return redirect(url_for('home.index'))
+
+
+@home.route('/register', methods=['GET', 'POST'])
+def register():
+    if current_user.is_authenticated:
+        return redirect(url_for('home.index'))
+    form = RegistrationForm()
+    if form.validate_on_submit():
+        user = User(username=form.username.data, email=form.email.data)
+        user.set_password(form.password.data)
+        db.session.add(user)
+        db.session.commit()
+        return redirect(url_for('home.login'))
+    return render_template('register.html', title='Register', form=form)
 
 
 @home.route('/reset_password_request', methods=['POST'])
