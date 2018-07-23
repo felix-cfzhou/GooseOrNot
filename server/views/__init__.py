@@ -1,12 +1,13 @@
-from os import path
 import json
 
-from flask import Blueprint, current_app, render_template, send_from_directory, request, redirect, url_for, flash
+from os import path
+
+from flask import Blueprint, current_app, render_template, send_from_directory, redirect, url_for, flash
 from flask_login import login_user, logout_user, current_user
 
 from server.models.user import User
 from server.views.forms.login import LoginForm
-from server.views.forms.reset_password import ResetPasswordForm
+from server.views.forms.reset_password import ResetPasswordRequestForm, ResetPasswordForm
 from server.views.forms.register import RegistrationForm
 from server.mail.password_reset import send_password_reset_email
 from server.database import db
@@ -66,26 +67,19 @@ def register():
     return render_template('register.html', title='Register', form=form)
 
 
-@home.route('/reset_password_request', methods=['POST'])
+@home.route('/reset_password_request', methods=['GET', 'POST'])
 def reset_password_request():
     if current_user.is_authenticated:
-        return jsonResponse(
-                {'password_reset': 'user is already logged in'},
-                400
-                )
-    data = request.get_json()
-    user = User.query.filter_by(email=data['email']).first()
-    if user:
-        send_password_reset_email(user)
-        return jsonResponse(
-                {'password_reset': 'check your mail for instructions'},
-                200
-                )
-    else:
-        return jsonResponse(
-                {'email': 'email not found'},
-                400
-                )
+            return redirect(url_for('home.index'))
+    form = ResetPasswordRequestForm()
+    if form.validate_on_submit():
+        user = User.query.filter_by(email=form.email.data).first()
+        if user:
+            send_password_reset_email(user)
+        flash('Check your email for the instructions to reset your password')
+        return redirect(url_for('home.login'))
+    return render_template('reset_password_request.html',
+                           title='Reset Password', form=form)
 
 
 @home.route('/reset_password/<token>', methods=['GET', 'POST'])
