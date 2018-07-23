@@ -1,10 +1,11 @@
 from os import path
 import json
 
-from flask import Blueprint, current_app, render_template, send_from_directory, request, redirect, url_for
-from flask_login import login_user, current_user
+from flask import Blueprint, current_app, render_template, send_from_directory, request, redirect, url_for, flash
+from flask_login import login_user, logout_user, current_user
 
 from server.models.user import User
+from server.views.forms.login import LoginForm
 from server.views.forms.reset_password import ResetPasswordForm
 from server.mail.password_reset import send_password_reset_email
 from server.database import db
@@ -23,42 +24,31 @@ home = Blueprint('home', __name__, url_prefix='', template_folder='templates')
 
 @home.route('/', methods=['GET', 'POST'])
 def index():
-    return render_template('index.html')
+    return redirect(url_for('home.login'), code=302)
 
 
-@home.route('/login', methods=['POST'])
+@home.route('/login', methods=['GET', 'POST'])
 def login():
-    data = request.get_json()
-    username = data['username']
-    password = data['password']
-    user = User.query.filter_by(username=username).first()
     if current_user.is_authenticated:
-        return jsonResponse(
-                {
-                    'username': 'already logged in',
-                    'password': 'already logged in'
-                    },
-                200
-                )
-    elif user is None:
-        return jsonResponse(
-                {'username': 'username does not exist'},
-                400
-                )
-    elif not user.check_password(password):
-        return jsonResponse(
-                {'password': 'username and password do not match'},
-                400
-                )
+        return redirect(url_for('webapp.index'))
+    form = LoginForm()
+    if form.validate_on_submit():
+        user = User.query.filter_by(username=form.username.data).first()
+        if user is None or not user.check_password(form.password.data):
+            flash('Invalid username or password')
+            return redirect(url_for('home.login'))
+
+        else:
+            login_user(user)
+            return redirect(url_for('webapp.index'))
     else:
-        login_user(user)
-        return jsonResponse(
-                {
-                    'username': 'login success',
-                    'password': 'login success'
-                    },
-                200
-                )
+        return render_template('login.html', title='Sign In', form=form)
+
+
+@home.route('/logout', methods=['GET', 'POST'])
+def logout():
+    logout_user()
+    return redirect(url_for('home.index'))
 
 
 @home.route('/reset_password_request', methods=['POST'])
@@ -102,7 +92,7 @@ def send(filename):
     return send_from_directory(
             path.join(
                 current_app.config['BASE_DIR'],
-                "client/web-app/build/"
+                "client/webapp/build/"
                 ),
             filename
             )

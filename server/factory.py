@@ -7,6 +7,7 @@ from flask_migrate import Migrate
 from server.database import db
 from server.views import home
 from server.views.upload import upload
+from server.views.webapp import webapp
 from server.login import login_manager
 from server.mail import mail
 from server.worker import conn
@@ -46,5 +47,7 @@ def create_app(override_config=None):
             }
 
     app.register_blueprint(home)
+    login_manager.login_view = 'home.login'
     app.register_blueprint(upload)
+    app.register_blueprint(webapp)
     return app
