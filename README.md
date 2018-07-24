@@ -9,6 +9,12 @@ Not a particular fan of heroku but it does save me the work of manually configur
 
 A proper setup would use nginx to serve static files for our front end.
 
+#### NGINX
+As we are serving static javascript files as our front-end, using nginx as a reverse-proxy for our gunicorn server would be ideal
+
+#### PgBouncer
+Due to Heroku resetting the database connection everytime we roll a new release, this quickly reduces our usable number of connections on the free dyno. Using PgBouncer can alleviate some of this problem
+
 ## Database
 ### Postgresql
 Setup is relatively straightforwards so I will not include a guide here.
