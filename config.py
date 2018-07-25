@@ -9,7 +9,7 @@ class Config(object):
     DEBUG = False
     TESTING = False
     CSRF_ENABLED = True
-    SECRET_KEY = 'this-will-be-changed'  # TODO: changed secret key
+    SECRET_KEY = b'f581bc8d046733c56164ec6187ab14469d0dc77e9092ed23'
     SQLALCHEMY_DATABASE_URI = os.environ['DATABASE_URL']
     REDIS_URL = os.environ.get('REDISTOGO_URL', 'redis://localhost:6379')
     MAIL_SERVER = 'smtp.googlemail.com'
