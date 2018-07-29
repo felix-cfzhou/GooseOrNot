@@ -1,18 +1,24 @@
 import * as React from 'react';
 // tslint:disable-next-line:no-var-requires
-require("./App.css")
+require("./index.css");
 
 import logo from './logo.svg';
 
-class App extends React.Component<{}> {
+export class HomeHeader extends React.Component<{}> {
+  public render() {
+    return <header className="App-header">
+      <img src={logo} className="App-logo" alt="logo" />
+      <h1 className="App-title">Welcome to React</h1>
+      {this.props.children}
+    </header>;
+  }
+}
+
+export class HomePage extends React.Component<{}> {
   public render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        // FIXME: make upload compartment
+        {/* FIXME: make upload compartment */}
         <form
           action={"/upload/photos"}
           method={"POST"}
@@ -31,5 +37,3 @@ class App extends React.Component<{}> {
     );
   }
 }
-
-export default App;

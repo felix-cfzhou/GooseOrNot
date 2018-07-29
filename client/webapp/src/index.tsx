@@ -1,11 +1,13 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import App from './App';
+import { Navigation } from './navigation';
 
 // tslint:disable-next-line:no-var-requires
 require("./index.css")
 
 ReactDOM.render(
-  <App />,
-  document.getElementById('root') as HTMLElement
+    <div>
+        <Navigation />
+    </div>,
+    document.getElementById('root') as HTMLElement
 );

@@ -7,6 +7,14 @@
     "rules": {
         "object-literal-sort-keys": false,
         "no-any": true,
+        "max-classes-per-file": [true, 5],
+        "jsx-boolean-value": false,
+        "jsx-no-lambda": false,
+        "semicolon": [true, "always"],
+        "trailing-comma": [true, {
+            "multiline": "always",
+            "singleline": "never"
+        }],
         "array-type": {
             "options": [
                 "generic"
@@ -23,5 +31,4 @@
             ]
         }
     }
-    // "rulesDirectory": ["./tslint_rules"]
 }

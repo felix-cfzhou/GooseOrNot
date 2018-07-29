@@ -1,4 +1,6 @@
 {
     "extends": ["eslint:recommend", "google"],
-    "rules": {}
+    "rules": {
+        "jsx-boolean-value": false
+    }
 }

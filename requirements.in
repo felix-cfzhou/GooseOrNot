@@ -5,10 +5,12 @@ gunicorn
 ipython
 psycopg2
 Flask-SQLAlchemy
-Flask-Script
-Flask-Migrate
+flask-script
+flask-migrate
 flask-login
 flask-mail
 flask-wtf
+flask-socketio
 pyjwt
 rq
+eventlet

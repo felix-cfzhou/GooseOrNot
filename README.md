@@ -7,7 +7,7 @@ It features a loosely coupled front-end and back-end and communicates solely thr
 ### Heroku
 Not a particular fan of heroku but it does save me the work of manually configuring my AWS instance for this project.
 
-A proper setup would use nginx to serve static files for our front end.
+Our server is just plain old gunicorn but under a reverse proxy from nginx for better performance.
 
 #### NGINX
 As we are serving static javascript files as our front-end, using nginx as a reverse-proxy for our gunicorn server would be ideal
@@ -117,7 +117,7 @@ Install android-sdk, android-sdk-build-tools, android-sdk-platform-tools. We wil
 
 The react-native targeted gradle download is completely behind, I am currently using 4.9
 
-the adb tool (android device bridge) comes with the android=sdk-platform-tools. Please do NOT install the android-tool or the adb versions may not match and result in terrible things.
+the adb tool (android device bridge) comes with the android-sdk-platform-tools. Please do NOT install android-tool or the adb versions may not match and result in terrible things.
 
 To accept licenses for a platform run either
 ```bash
