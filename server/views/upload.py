@@ -2,6 +2,7 @@ from os import path
 import uuid
 
 from flask import Blueprint, current_app, request
+from flask_login import login_required, current_user
 from werkzeug.utils import secure_filename
 from server.models.image import Image
 from server.database import db
@@ -30,6 +31,7 @@ NoFile = {"upload": "no files uploaded"}
 
 
 @upload.route('/photos', methods=['POST'])
+@login_required
 def receive():
     if 'photo' in request.files:
         for file in request.files.getlist('photo'):
@@ -53,7 +55,10 @@ def receive():
                     ))
                 with current_app.app_context():
                     session = db.session
-                    image = Image(unique_name)
+                    image = Image(
+                            file_name=unique_name,
+                            user_id=current_user.id
+                            )
                     session.add(image)
                     # TODO: investigate whether this is actually ideal
                     session.commit()
