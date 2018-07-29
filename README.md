@@ -75,6 +75,7 @@ the development redis worker is a simple script but is run as a daemon on our st
 
 ### SocketIO
 SocketIO is used to keep the client up to date with the progress of the request to process a photo
+take note that any registered handlers for your socketio server should be in the form of a blueprint and registered in the application configuration or else nothing will happen when the client emits an event.
 
 ### Pytest
 The ever popular pytest module is used to test server side logic, model correctness, and what not.
@@ -84,8 +85,9 @@ I would really appreciate it if anyone is willing to write more test cases.
 It would really help the debugging process!
 
 ## Client
-### React-Socket-IO
+### Socket.IO-Client
 the client for our websocket to process requests
+A mature library which integrates very well with our flask-socketIO backend
 
 ### Web
 #### React-Typescript
