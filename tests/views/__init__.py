@@ -1,11 +1,4 @@
-import json
+def test_webapp_no_auth(client):
+    response = client.get('/webapp')
 
-
-def post_json(client, path, dictionary):
-    response = client.post(
-            path,
-            content_type='application/json',
-            data=json.dumps(dictionary)
-            )
-
-    return response
+    assert(response.status_code == 301)
