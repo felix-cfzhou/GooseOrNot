@@ -2,7 +2,7 @@ import functools
 
 from flask import Blueprint
 from flask_login import current_user
-from flask_socketio import emit, send, disconnect
+from flask_socketio import send, disconnect
 
 from server.socket import socketio
 
