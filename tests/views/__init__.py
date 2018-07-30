@@ -21,9 +21,3 @@ def test_login_logout(client, user):
     response = logout(client)
 
     assert(response.status_code == 200)
-
-
-def test_webapp_no_auth(client):
-    response = client.get('/webapp')
-
-    assert(response.status_code == 301)
