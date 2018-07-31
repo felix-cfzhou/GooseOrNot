@@ -53,15 +53,6 @@ def receive():
                     current_app.config['PHOTO_UPLOAD_FOLDER'],
                     unique_name
                     ))
-                with current_app.app_context():
-                    session = db.session
-                    image = Image(
-                            file_name=unique_name,
-                            user_id=current_user.id
-                            )
-                    session.add(image)
-                    # TODO: investigate whether this is actually ideal
-                    session.commit()
                 return jsonResponse(
                         {'upload': 'success'},
                         200
