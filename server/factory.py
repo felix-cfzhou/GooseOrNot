@@ -55,10 +55,7 @@ def create_app(override_config=None):
 
     app.register_blueprint(sockets)
     app.register_blueprint(home)
-    login_manager.login_view = 'home.login'
     app.register_blueprint(upload)
     app.register_blueprint(webapp)
     app.register_blueprint(signed_upload)
-
-    # api.add_resource(SignedUpload, '/signed_upload')
     return app
