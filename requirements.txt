@@ -8,8 +8,11 @@ alembic==0.9.10           # via flask-migrate
 argh==0.26.2              # via watchdog
 backcall==0.1.0           # via ipython
 blinker==1.4              # via flask-mail
+boto3==1.7.66
+botocore==1.10.66         # via boto3, s3transfer
 click==6.7                # via flask, rq
 decorator==4.3.0          # via ipython, traitlets
+docutils==0.14            # via botocore
 eventlet==0.23.0
 flask-login==0.4.1
 flask-mail==0.9.1
@@ -26,6 +29,7 @@ ipython==6.4.0
 itsdangerous==0.24        # via flask
 jedi==0.12.1              # via ipython
 jinja2==2.10              # via flask
+jmespath==0.9.3           # via boto3, botocore
 mako==1.0.7               # via alembic
 markupsafe==1.0           # via jinja2, mako
 parso==0.3.1              # via jedi
@@ -37,13 +41,14 @@ psycopg2==2.7.5
 ptyprocess==0.6.0         # via pexpect
 pygments==2.2.0           # via ipython
 pyjwt==1.6.4
-python-dateutil==2.7.3    # via alembic
+python-dateutil==2.7.3    # via alembic, botocore
 python-editor==1.0.3      # via alembic
 python-engineio==2.2.0    # via python-socketio
 python-socketio==2.0.0    # via flask-socketio
 pyyaml==3.13              # via watchdog
 redis==2.10.6             # via rq
 rq==0.12.0
+s3transfer==0.1.13        # via boto3
 simplegeneric==0.8.1      # via ipython
 simplejson==3.16.0
 six==1.11.0               # via prompt-toolkit, python-dateutil, python-engineio, python-socketio, traitlets

@@ -19,7 +19,9 @@ class Config(object):
     MAIL_PASSWORD = 'waterlooCS'
     MAIL_DEFAULT_SENDER = 'gooseornot@gmail.com'
     SERVER_NAME = os.environ['SERVER_NAME']
-
+    S3_BUCKET_NAME = os.environ['S3_BUCKET_NAME']
+    AWS_ACCESS_KEY_ID = os.environ['AWS_ACCESS_KEY_ID']
+    AWS_SECRET_ACCESS_KEY = os.environ['AWS_SECRET_ACCESS_KEY']
 
 class ProductionConfig(Config):
     DEBUG = False

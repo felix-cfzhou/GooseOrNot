@@ -13,6 +13,7 @@ from server.sockets import sockets
 from server.views import home
 from server.views.upload import upload
 from server.views.webapp import webapp
+from server.api.signed_upload import signed_upload
 
 migrate = Migrate()
 
@@ -54,4 +55,5 @@ def create_app(override_config=None):
     login_manager.login_view = 'home.login'
     app.register_blueprint(upload)
     app.register_blueprint(webapp)
+    app.register_blueprint(signed_upload)
     return app

@@ -19,6 +19,11 @@ class Image(db.Model):
             db.Integer,
             db.ForeignKey('users.id', name='FK_users_images')
             )
+    url = db.Column(
+            db.String(),
+            nullable=False,
+            unique=True
+            )
     timestamp = db.Column(
             db.DateTime,
             index=True,
