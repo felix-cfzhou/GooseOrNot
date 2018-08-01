@@ -2,7 +2,7 @@ import boto3
 import uuid
 
 from flask import Blueprint, current_app
-from flask_login import current_user
+from flask_login import current_user, login_required
 from flask_restful import Api, Resource, reqparse
 from werkzeug.utils import secure_filename
 from werkzeug.datastructures import FileStorage
@@ -69,6 +69,7 @@ class SignedUpload(Resource):
     post_parser = reqparse.RequestParser(argument_class=FileStorageArgument)
     post_parser.add_argument('upload_file', required=True, type=FileStorage, location='files')
 
+    @login_required
     def post(self):
         args = self.post_parser.parse_args()
         file = args['upload_file']
@@ -76,7 +77,6 @@ class SignedUpload(Resource):
         s3_url, unique_secure_filename = upload_file_to_s3(file)
 
         # TODO: configure authentification
-        """
         with current_app.app_context():
             session = db.session
             image = Image(
@@ -85,7 +85,6 @@ class SignedUpload(Resource):
                     url=s3_url
                     )
             session.add(image)
-        """
 
         json = dict(signed_upload="success", url=s3_url)
 
