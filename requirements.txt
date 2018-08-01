@@ -5,6 +5,7 @@
 #    pip-compile --output-file requirements.txt requirements.in
 #
 alembic==0.9.10           # via flask-migrate
+aniso8601==3.0.2          # via flask-restful
 argh==0.26.2              # via watchdog
 backcall==0.1.0           # via ipython
 blinker==1.4              # via flask-mail
@@ -17,6 +18,7 @@ eventlet==0.23.0
 flask-login==0.4.1
 flask-mail==0.9.1
 flask-migrate==2.2.1
+flask-restful==0.3.6
 flask-script==2.0.6
 flask-socketio==3.0.1
 flask-sqlalchemy==2.3.2
@@ -45,13 +47,14 @@ python-dateutil==2.7.3    # via alembic, botocore
 python-editor==1.0.3      # via alembic
 python-engineio==2.2.0    # via python-socketio
 python-socketio==2.0.0    # via flask-socketio
+pytz==2018.5              # via flask-restful
 pyyaml==3.13              # via watchdog
 redis==2.10.6             # via rq
 rq==0.12.0
 s3transfer==0.1.13        # via boto3
 simplegeneric==0.8.1      # via ipython
 simplejson==3.16.0
-six==1.11.0               # via prompt-toolkit, python-dateutil, python-engineio, python-socketio, traitlets
+six==1.11.0               # via flask-restful, prompt-toolkit, python-dateutil, python-engineio, python-socketio, traitlets
 sqlalchemy==1.2.9         # via alembic, flask-sqlalchemy
 traitlets==4.3.2          # via ipython
 watchdog==0.8.3
