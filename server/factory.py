@@ -13,6 +13,7 @@ from server.sockets import sockets
 from server.views import home
 from server.views.upload import upload
 from server.views.webapp import webapp
+from server.rest import api
 from server.api.signed_upload import signed_upload
 
 migrate = Migrate()
@@ -44,6 +45,8 @@ def create_app(override_config=None):
 
     socketio.init_app(app)
 
+    api.init_app(app)
+
     app.task_queues = {
             'high': Queue('high', connection=conn),
             'default': Queue('default', connection=conn),
@@ -56,4 +59,6 @@ def create_app(override_config=None):
     app.register_blueprint(upload)
     app.register_blueprint(webapp)
     app.register_blueprint(signed_upload)
+
+    # api.add_resource(SignedUpload, '/signed_upload')
     return app
