@@ -1,11 +1,12 @@
 import boto3
 import uuid
 
-from flask import Blueprint, current_app, request
-from flask_login import login_required, current_user
+from flask import Blueprint, current_app
+from flask_login import current_user
+from flask_restful import Api, Resource, reqparse
 from werkzeug.utils import secure_filename
+from werkzeug.datastructures import FileStorage
 
-from server.views import jsonResponse
 from server.database import db
 from server.models.image import Image
 from config import Config
@@ -51,35 +52,46 @@ def upload_file_to_s3(file, acl="public-read"):
     return eventual_url, unique_secure_filename
 
 
-signed_upload = Blueprint('signed_upload', __name__, url_prefix='/api')
+class FileStorageArgument(reqparse.Argument):
+    """argument class for flask-restful used
+    in all cases where file uploads need to be handled"""
+
+    def convert(self, value, op):
+        if self.type is FileStorage:
+            return value
+        else:
+            # Not sure what this does, will investigate
+            super(FileStorageArgument, self).convert(*args, **kwargs)
 
 
-@signed_upload.route('/signed_upload', methods=['POST'])
-@login_required
-def signed_s3():
-    file = request.files["upload_file"]
+class SignedUpload(Resource):
 
-    if file.filename == "":
-        return jsonResponse(
-                {"signed_upload": "not file uploaded"},
-                400
-                )
+    post_parser = reqparse.RequestParser(argument_class=FileStorageArgument)
+    post_parser.add_argument('upload_file', required=True, type=FileStorage, location='files')
 
-    s3_url, unique_secure_filename = upload_file_to_s3(file)
+    def post(self):
+        args = self.post_parser.parse_args()
+        file = args['upload_file']
 
-    with current_app.app_context():
-        session = db.session
-        image = Image(
-                file_name=unique_secure_filename,
-                user_id=current_user.id,
-                url=s3_url
-                )
-        session.add(image)
+        s3_url, unique_secure_filename = upload_file_to_s3(file)
 
-    return jsonResponse(
-            {
-                "signed_upload": "success",
-                "url": s3_url
-                },
-            200
-            )
+        # TODO: configure authentification
+        """
+        with current_app.app_context():
+            session = db.session
+            image = Image(
+                    file_name=unique_secure_filename,
+                    user_id=current_user.id,
+                    url=s3_url
+                    )
+            session.add(image)
+        """
+
+        json = dict(signed_upload="success", url=s3_url)
+
+        return json, 200
+
+
+signed_upload = Blueprint('signed_upload', __name__)
+signed_upload_api = Api(signed_upload, prefix='/api')
+signed_upload_api.add_resource(SignedUpload, '/signed_upload')
