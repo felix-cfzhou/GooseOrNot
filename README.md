@@ -33,6 +33,10 @@ You will need to set
 DATABASE_URL=blah_blah_blah
 TESTING_DATABASE_URL=blah_blah_blah
 APP_SETTINGS=config._SOMETHING_Config
+SERVER_NAME=example.com
+S3_BUCKET_NAME=bucket_name
+AWS_ACCESS_KEY_ID=super_secret
+AWS_SECRET_ACCESS_KEY=super_duper_secret
 ```
 
 ### Flask
