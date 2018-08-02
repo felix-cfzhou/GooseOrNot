@@ -16,4 +16,3 @@ pyjwt
 rq
 eventlet
 boto3
-moto
