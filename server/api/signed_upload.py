@@ -52,6 +52,10 @@ def upload_file_to_s3(file, acl="public-read"):
     return eventual_url, unique_secure_filename
 
 
+signed_upload = Blueprint('signed_upload', __name__)
+signed_upload_api = Api(signed_upload, prefix='/api')
+
+
 class FileStorageArgument(reqparse.Argument):
     """argument class for flask-restful used
     in all cases where file uploads need to be handled"""
@@ -60,8 +64,8 @@ class FileStorageArgument(reqparse.Argument):
         if self.type is FileStorage:
             return value
         else:
-            # Not sure what this does, will investigate
-            super(FileStorageArgument, self).convert(*args, **kwargs)
+            # TODO: Not sure what this does, will investigate
+            super(FileStorageArgument, self).convert(*args, **kwargs)  # noqa: F821
 
 
 class SignedUpload(Resource):
@@ -91,6 +95,4 @@ class SignedUpload(Resource):
         return json, 200
 
 
-signed_upload = Blueprint('signed_upload', __name__)
-signed_upload_api = Api(signed_upload, prefix='/api')
 signed_upload_api.add_resource(SignedUpload, '/signed_upload')
