@@ -11,7 +11,9 @@ flask-login
 flask-mail
 flask-wtf
 flask-socketio
+flask-restful
 pyjwt
 rq
 eventlet
 boto3
+moto

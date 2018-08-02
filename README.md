@@ -88,6 +88,10 @@ I would really appreciate it if anyone is willing to write more test cases.
 
 It would really help the debugging process!
 
+**NOTE**: RUN PYTEST BEFORE EACH PUSH!!
+
+I have a pre push hook configured to run pytest and abort the push if pytest fails for some reason
+
 ## Client
 ### Socket.IO-Client
 the client for our websocket to process requests
