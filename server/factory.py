@@ -18,7 +18,6 @@ from server.redis import conn
 migrate = Migrate()
 
 
-
 def create_dir_if_none(folderName):
     if not os.path.exists(folderName):
         os.makedirs(folderName)
