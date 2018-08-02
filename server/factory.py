@@ -13,7 +13,6 @@ from server.sockets import sockets
 from server.views import home
 from server.views.upload import upload
 from server.views.webapp import webapp
-from server.rest import api
 from server.api.signed_upload import signed_upload
 
 migrate = Migrate()
@@ -44,8 +43,6 @@ def create_app(override_config=None):
     mail.init_app(app)
 
     socketio.init_app(app)
-
-    api.init_app(app)
 
     app.task_queues = {
             'high': Queue('high', connection=conn),
