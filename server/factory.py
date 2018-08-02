@@ -7,15 +7,16 @@ from flask_migrate import Migrate
 from server.database import db
 from server.login import login_manager
 from server.mail import mail
-from server.worker import conn
 from server.socket import socketio
 from server.sockets import sockets
 from server.views import home
 from server.views.upload import upload
 from server.views.webapp import webapp
 from server.api.signed_upload import signed_upload
+from server.redis import conn
 
 migrate = Migrate()
+
 
 
 def create_dir_if_none(folderName):
