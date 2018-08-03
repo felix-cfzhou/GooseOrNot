@@ -1,15 +1,20 @@
 import pytest
 
 from flask_migrate import upgrade, downgrade
+from fakeredis import FakeStrictRedis
+from rq import Queue
 
 from server.factory import create_app
 from server.database import db as _db
-
 from server.models.user import User
 from server.models.image import Image
 from server.models.task import Task
-
 from config import TestingConfig
+
+
+@pytest.fixture(scope='session')
+def queue():
+    return Queue(is_async=False, connection=FakeStrictRedis())
 
 
 @pytest.fixture(scope='session')
