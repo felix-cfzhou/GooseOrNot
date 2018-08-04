@@ -73,10 +73,16 @@ def session(db, request):
     return session
 
 
-@pytest.fixture(scope='session')
-def user(session):
+@pytest.fixture()
+def user(session, request):
     user = User(username='username', email='example@example.com')
     user.set_password('password')
     session.add(user)
     session.commit()
+
+    def teardown():
+        session.delete(user)
+        session.commit()
+
+    request.addfinalizer(teardown)
     return user
