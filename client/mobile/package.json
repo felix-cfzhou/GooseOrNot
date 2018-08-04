@@ -1,14 +1,19 @@
 {
-  "name": "client",
+  "name": "GooseOrNot",
   "version": "0.0.1",
   "private": true,
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
+    "run-android": "ENVFILE=.env.dev react-native run-android",
+    "run-android-staging": "ENVFILE=.env.staging react-native run-android",
+    "run-android-prod": "ENVFILE=.env.prod react-native run-android",
+    "build-android-prod": "export ENVFILE=.env.prod && cd android && ./gradlew assembleRelease && cd ..",
     "test": "jest"
   },
   "dependencies": {
     "react": "16.4.1",
-    "react-native": "0.56.0"
+    "react-native": "0.56.0",
+    "react-native-config": "^0.11.5"
   },
   "devDependencies": {
     "@types/react": "^16.4.6",
