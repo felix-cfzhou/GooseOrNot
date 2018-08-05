@@ -1,40 +1,34 @@
 import * as React from "react";
-import { Platform, StyleSheet, Text, View } from "react-native";
+import { Button, Text, View } from "react-native";
+import {
+    NavigationScreenConfig,
+    NavigationScreenOptions,
+    NavigationScreenProp,
+} from "react-navigation";
 
-const instructions = Platform.select({
-    android:
-      "Double tap R on your keyboard to reload\n" +
-      "Shake or press menu button for dev menu",
-    ios: "Press Cmd+R to reload,\n" + "Cmd+D or shake for dev menu",
-  });
+import { core } from "App/style";
+import { colors } from "App/style";
 
-export class HomeScreen extends React.Component<{}> {
+export interface BaseScreenProps {
+    navigation: NavigationScreenProp<{}>;
+}
+
+export class HomeScreen extends React.Component<BaseScreenProps> {
+    public static readonly navigationOptions: NavigationScreenConfig<NavigationScreenOptions> = {
+        title: "Goose Or Not",
+    };
+
     public render() {
         return (
-            <View style={styles.container}>
-                <Text style={styles.welcome}>Welcome to Goose Or Not!</Text>
-                <Text style={styles.instructions}>To get started, upload a picture!</Text>
-                <Text style={styles.instructions}>{instructions}</Text>
+            <View style={core.container}>
+                <Text style={core.subtitle}>Welcome to Goose Or Not!</Text>
+                <Text style={core.centered_text}>To get started, upload a picture!</Text>
+                <Button
+                    color={colors.pink_primary}
+                    title={"Go to Upload"}
+                    onPress={() => this.props.navigation.navigate("Upload")}
+                />
             </View>
         );
     }
 }
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-        backgroundColor: "#F5FCFF",
-    },
-    welcome: {
-        fontSize: 20,
-        textAlign: "center",
-        margin: 10,
-    },
-    instructions: {
-        textAlign: "center",
-        color: "#333333",
-        marginBottom: 5,
-    },
-});
