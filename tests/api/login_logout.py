@@ -19,4 +19,4 @@ def test_api_login_success(client, user):
                 )
             )
 
-    assert(response.status_code == 204)
+    assert(response.status_code == 200)

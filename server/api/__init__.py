@@ -17,7 +17,7 @@ class Login(Resource):
 
     def post(self):
         if current_user.is_authenticated:
-            return {}, 204
+            return {}, 200
 
         args = self.parser.parse_args()
         username = args['username']
@@ -33,7 +33,7 @@ class Login(Resource):
             return json, 400
 
         login_user(user)
-        return {}, 204
+        return {}, 200
 
 
 class Logout(Resource):
@@ -42,7 +42,7 @@ class Logout(Resource):
     def post(self):
         logout_user()
 
-        return {}, 204
+        return {}, 200
 
 
 restful_home_api.add_resource(Login, '/login')

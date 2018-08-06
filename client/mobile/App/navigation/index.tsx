@@ -8,10 +8,13 @@
 import * as React from "react";
 import { createStackNavigator } from "react-navigation";
 
-import { HomeScreen } from "App/view";
+import { HomeScreen, LoginScreen } from "App/view/index";
 import { UploadScreen } from "App/view/upload";
 
 const RootStack = createStackNavigator({
+  Login: {
+    screen: LoginScreen,
+  },
   Home: {
     screen: HomeScreen,
   },
@@ -19,7 +22,7 @@ const RootStack = createStackNavigator({
     screen: UploadScreen,
   },
 }, {
-    initialRouteName: "Home",
+    initialRouteName: "Login",
   },
 );
 

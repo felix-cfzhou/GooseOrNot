@@ -26,10 +26,13 @@ interface JSONArray extends SpecificJSONArray<JSONObject> {}
 type JSONValue = null | boolean | string | number | JSONArray | JSONObject;
 
 export class API {
-    private static readonly baseUrl = Config.API_URL;
-    private static readonly headers = {
-        Accept: "application/json",
-    };
+    private readonly baseUrl = Config.API_URL;
+    private readonly headers = new Headers();
+
+    constructor() {
+        this.headers.append("Content-Type", "application/json;charset=UTF-8");
+        this.headers.append("accept", "application/json");
+    }
 
     public instance_get(path: string) {
         return this.request({path, method: "GET"});
@@ -52,20 +55,16 @@ export class API {
         method: RequestMethod,
         body?: JSONObject,
     }): Bluebird<JSONValue> {
-        const url = `${API.baseUrl}${req.path}`;
+        const url = `${this.baseUrl}${req.path}`;
         const params: RequestInit = {
-            headers: API.headers,
+            headers: this.headers,
             method: req.method,
             body: req.body ? JSON.stringify(req.body) : undefined,
         };
         const request = new Request(url, params);
         return Bluebird.resolve(fetch(request)).then((response) => {
             if (response.ok) {
-                if (response.status === 204) {
-                    return Bluebird.resolve(null);
-                } else {
-                    return Bluebird.resolve(response.json() as Bluebird<JSONValue>);
-                }
+                return Bluebird.resolve(response.json() as Bluebird<JSONValue>);
             } else {
                 return response.json().then((data) => {
                     return Bluebird.reject(
