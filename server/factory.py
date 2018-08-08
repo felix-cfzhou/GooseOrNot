@@ -9,11 +9,12 @@ from server.login import login_manager
 from server.mail import mail
 from server.socket import socketio
 from server.sockets import sockets
+from server.redis import conn
 from server.views import home
 from server.views.upload import upload
 from server.views.webapp import webapp
+from server.api import restful_home
 from server.api.signed_upload import signed_upload
-from server.redis import conn
 
 migrate = Migrate()
 
@@ -54,5 +55,6 @@ def create_app(override_config=None):
     app.register_blueprint(home)
     app.register_blueprint(upload)
     app.register_blueprint(webapp)
+    app.register_blueprint(restful_home)
     app.register_blueprint(signed_upload)
     return app
