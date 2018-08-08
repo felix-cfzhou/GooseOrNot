@@ -2,8 +2,8 @@ import * as React from "react";
 import { Text, View } from "react-native";
 import { NavigationScreenConfig, NavigationScreenOptions } from "react-navigation";
 
-import { core } from "App/style";
-import { BaseScreenProps } from "App/view"
+import { core } from "App/style/index";
+import { BaseScreenProps } from "App/view/index";
 
 export class UploadScreen extends React.Component<BaseScreenProps> {
     public static readonly navigationOptions: NavigationScreenConfig<NavigationScreenOptions> = {

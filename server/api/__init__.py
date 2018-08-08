@@ -16,9 +16,6 @@ class Login(Resource):
     parser.add_argument('password', type=str, required=True)
 
     def post(self):
-        if current_user.is_authenticated:
-            return {}, 200
-
         args = self.parser.parse_args()
         username = args['username']
         password = args['password']

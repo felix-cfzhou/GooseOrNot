@@ -25,13 +25,17 @@ interface SpecificJSONArray<T extends JSONValue> extends Array<T> {}
 interface JSONArray extends SpecificJSONArray<JSONObject> {}
 type JSONValue = null | boolean | string | number | JSONArray | JSONObject;
 
+interface APIProps {
+    "Content-Type": string;
+}
+
 export class API {
     private readonly baseUrl = Config.API_URL;
     private readonly headers = new Headers();
 
-    constructor() {
-        this.headers.append("Content-Type", "application/json;charset=UTF-8");
-        this.headers.append("accept", "application/json");
+    constructor(props: APIProps) {
+        this.headers.append("Content-Type", "application/json");
+        this.headers.append("Accept", props["Content-Type"]);
     }
 
     public instance_get(path: string) {

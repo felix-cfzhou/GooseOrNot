@@ -7,15 +7,18 @@ export interface InputBaseProps<InputType> {
 }
 
 export abstract class InputBase<InputType> {
-    public abstract save: (saveFunc: (data: InputType) => void) => void;
-    public props: InputBaseProps<InputType>;
-    public state: InputType;
-
+    public abstract readonly save: (saveFunc: (data: InputType) => void) => void;
+    public readonly props: InputBaseProps<InputType>;
+    protected readonly state: InputType;
     protected label: string = "";
 
     constructor(props: InputBaseProps<InputType>) {
         this.props = props;
         this.state = this.props.initialState;
+    }
+
+    public getState(): InputType {
+        return this.state;
     }
 
     public abstract render(extraProps: {}): React.ReactNode;

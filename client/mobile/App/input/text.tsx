@@ -21,8 +21,7 @@ export class InputText extends InputBase<string> {
         return <TextInput
             style={inputStyle.text}
             onChangeText={(text: string) => {
-                this.state = text;
-                this.onValueChange(this.updateFunc);
+                this.onValueChange(this.createUpdateFunc(text));
             }}
             value={this.state}
             placeholder={this.props.placeholder}
@@ -34,11 +33,11 @@ export class InputText extends InputBase<string> {
         saveFunc(this.state);
     }
 
-    private updateFunc: (prevInput: InputText) => InputText = (prevInput: InputText) => {
+    private createUpdateFunc = (newState: string) => (prevInput: InputText) => {
         return new InputText({
-            label: this.props.label,
-            initialState: prevInput.state,
-            onValueChange: this.onValueChange,
+            label: prevInput.props.label,
+            initialState: newState,
+            onValueChange: prevInput.onValueChange,
         });
     }
 }
