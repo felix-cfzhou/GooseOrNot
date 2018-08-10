@@ -24,18 +24,19 @@ interface SpecificJSONArray<T extends JSONValue> extends Array<T> {}
 interface JSONArray extends SpecificJSONArray<JSONObject> {}
 type JSONValue = null | boolean | string | number | JSONArray | JSONObject;
 
-interface APIProps {
-    "Content-Type": string;
+interface JsonBody {
+    type: "json";
+    body: JSONObject;
 }
 
+interface FileBody {
+    type: "file";
+    body: {[key: string]: File};
+}
+
+type Body = | JsonBody | FileBody;
+
 export class API {
-    private readonly headers = new Headers();
-
-    constructor(props: APIProps) {
-        this.headers.append("Content-Type", "application/json");
-        this.headers.append("Accept", props["Content-Type"]);
-    }
-
     public instance_get(path: string) {
         return this.request({path, method: "GET"});
     }
@@ -44,24 +45,38 @@ export class API {
         return this.request({path, method: "DELETE"});
     }
 
-    public instance_post(path: string, body: JSONObject) {
+    public instance_post(path: string, body: Body) {
         return this.request({path, method: "POST", body});
     }
 
-    public instance_put(path: string, body: JSONObject) {
+    public instance_put(path: string, body: Body) {
         return this.request({path, method: "PUT", body});
     }
 
     public request(req: {
         path: string,
         method: RequestMethod,
-        body?: JSONObject,
+        body?: Body,
     }): Bluebird<JSONValue> {
-        const url = `api${req.path}`;
+        const url = `/api${req.path}`;
+        let body: RequestInit["body"];
+        if (req.body) {
+            if (req.body.type === "json") {
+                body = JSON.stringify(req.body.body);
+            } else if (req.body.type === "file") {
+                const formData = new FormData();
+                for (const key in req.body.body) {
+                    if(req.body.body.hasOwnProperty(key)) {
+                        formData.append(key, req.body.body[key]);
+                    }
+                }
+                body = formData;
+            }
+        }
         const params: RequestInit = {
-            headers: this.headers,
+            headers: new Headers(),
             method: req.method,
-            body: req.body ? JSON.stringify(req.body) : undefined,
+            body,
         };
         const request = new Request(url, params);
         return Bluebird.resolve(fetch(request)).then((response) => {

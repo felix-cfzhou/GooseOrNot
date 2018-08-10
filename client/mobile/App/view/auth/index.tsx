@@ -110,7 +110,7 @@ export class LoginScreen extends React.Component<BaseScreenProps, LoginScreenSta
 
     private login(username: string, password: string) {
         return this.api.instance_post(
-            "/api/login",
+            "/login",
             {
                 username,
                 password,

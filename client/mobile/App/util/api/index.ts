@@ -25,18 +25,8 @@ interface SpecificJSONArray<T extends JSONValue> extends Array<T> {}
 interface JSONArray extends SpecificJSONArray<JSONObject> {}
 type JSONValue = null | boolean | string | number | JSONArray | JSONObject;
 
-interface APIProps {
-    "Content-Type": string;
-}
-
 export class API {
     private readonly baseUrl = Config.API_URL;
-    private readonly headers = new Headers();
-
-    constructor(props: APIProps) {
-        this.headers.append("Content-Type", "application/json");
-        this.headers.append("Accept", props["Content-Type"]);
-    }
 
     public instance_get(path: string) {
         return this.request({path, method: "GET"});
@@ -59,9 +49,9 @@ export class API {
         method: RequestMethod,
         body?: JSONObject,
     }): Bluebird<JSONValue> {
-        const url = `${this.baseUrl}${req.path}`;
+        const url = `${this.baseUrl}/api${req.path}`;
         const params: RequestInit = {
-            headers: this.headers,
+            headers: new Headers(),
             method: req.method,
             body: req.body ? JSON.stringify(req.body) : undefined,
         };

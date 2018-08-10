@@ -30,7 +30,7 @@ export class AuthLoadingScreen extends React.Component<BaseScreenProps> {
 
     private login(username: string, password: string) {
         return this.api.instance_post(
-            "/api/login",
+            "/login",
             {
                 username,
                 password,

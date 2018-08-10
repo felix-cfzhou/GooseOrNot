@@ -1,8 +1,12 @@
 import * as React from 'react';
-// tslint:disable-next-line:no-var-requires
-require("./index.css");
+
+import { InputFile } from 'src/input/file';
+import { API } from 'src/util/api';
 
 import logo from './logo.svg';
+
+// tslint:disable-next-line:no-var-requires
+require("./index.css");
 
 export class HomeHeader extends React.Component<{}> {
   public render() {
@@ -14,24 +18,40 @@ export class HomeHeader extends React.Component<{}> {
   }
 }
 
-export class HomePage extends React.Component<{}> {
+interface HomePageState {
+  upload: InputFile;
+}
+
+export class HomePage extends React.Component<{}, HomePageState> {
+  private api = new API();
+
+  constructor() {
+    super({});
+    this.state = {
+      upload: new InputFile({
+        initialState: null,
+        onValueChange: (event) => {
+          const files = event.target.files;
+          if (files && files.length > 0) {
+            this.api.instance_post(
+              '/signed_upload',
+              {
+                type: "file",
+                body: {
+                  upload_file: files[0],
+                },
+              },
+            );
+          }
+        },
+      }),
+    };
+  }
+
   public render() {
     return (
       <div className="App">
-        {/* FIXME: make upload compartment */}
-        <form
-          action={"/api/signed_upload"}
-          method={"POST"}
-          encType={"multipart/form-data"}
-        >
-          <input
-            type={"file"}
-            name={"upload_file"}
-          />
-          <input
-            type={"submit"}
-          />
-        </form>
+        {this.state.upload.render({})}
       </div>
     );
   }
