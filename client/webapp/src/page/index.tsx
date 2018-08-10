@@ -20,14 +20,13 @@ export class HomePage extends React.Component<{}> {
       <div className="App">
         {/* FIXME: make upload compartment */}
         <form
-          action={"/upload/photos"}
+          action={"/api/signed_upload"}
           method={"POST"}
           encType={"multipart/form-data"}
         >
           <input
             type={"file"}
-            name={"photo"}
-            multiple={true}
+            name={"upload_file"}
           />
           <input
             type={"submit"}
