@@ -89,6 +89,7 @@ class SignedUpload(Resource):
                     url=s3_url
                     )
             session.add(image)
+            session.commit()
 
         json = dict(signed_upload="success", url=s3_url)
 
