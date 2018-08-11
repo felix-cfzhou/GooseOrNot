@@ -62,7 +62,7 @@ export class HomePage extends React.Component<{}, HomePageState> {
         '/signed_upload',
         {
           type: "file",
-          body: {
+          content: {
             upload_file: files[0],
           },
         },

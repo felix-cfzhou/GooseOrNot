@@ -18,6 +18,18 @@ class RequestError extends Error {
     }
 }
 
+interface JsonBody {
+    type: "json";
+    content: JSONObject;
+}
+
+interface FileBody {
+    type: "file";
+    content: {[key: string]: File};
+}
+
+type Body = | JsonBody | FileBody;
+
 type RequestMethod = "GET" | "POST" | "PUT" | "DELETE";
 
 interface JSONObject {[key: string]: JSONValue | undefined; }
@@ -36,23 +48,37 @@ export class API {
         return this.request({path, method: "DELETE"});
     }
 
-    public instance_post(path: string, body: JSONObject) {
+    public instance_post(path: string, body: Body) {
         return this.request({path, method: "POST", body});
     }
 
-    public instance_put(path: string, body: JSONObject) {
+    public instance_put(path: string, body: Body) {
         return this.request({path, method: "PUT", body});
     }
 
     public request(req: {
         path: string,
         method: RequestMethod,
-        body?: JSONObject,
+        body?: Body,
     }): Bluebird<JSONValue> {
         const url = `${this.baseUrl}/api${req.path}`;
+        let body: RequestInit["body"];
+        if (req.body) {
+            if (req.body.type === "json") {
+                body = JSON.stringify(req.body.content);
+            } else if (req.body.type === "file") {
+                const formData = new FormData();
+                for (const key in req.body.content) {
+                    if (req.body.content.hasOwnProperty(key)) {
+                        formData.append(key, req.body.content[key]);
+                    }
+                }
+                body = formData;
+            }
+        }
         const params: RequestInit = {
             method: req.method,
-            body: req.body ? JSON.stringify(req.body) : undefined,
+            body,
         };
         const request = new Request(url, params);
         return Bluebird.resolve(fetch(request)).then((response) => {

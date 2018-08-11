@@ -22,12 +22,12 @@ type RequestMethod = "GET" | "POST" | "PUT" | "DELETE";
 
 interface JsonBody {
     type: "json";
-    body: JSONObject;
+    content: JSONObject;
 }
 
 interface FileBody {
     type: "file";
-    body: {[key: string]: File};
+    content: {[key: string]: File};
 }
 
 type Body = | JsonBody | FileBody;
@@ -58,12 +58,12 @@ export class API {
         let body: RequestInit["body"];
         if (req.body) {
             if (req.body.type === "json") {
-                body = JSON.stringify(req.body.body);
+                body = JSON.stringify(req.body.content);
             } else if (req.body.type === "file") {
                 const formData = new FormData();
-                for (const key in req.body.body) {
-                    if(req.body.body.hasOwnProperty(key)) {
-                        formData.append(key, req.body.body[key]);
+                for (const key in req.body.content) {
+                    if(req.body.content.hasOwnProperty(key)) {
+                        formData.append(key, req.body.content[key]);
                     }
                 }
                 body = formData;
