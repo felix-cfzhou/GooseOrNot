@@ -8,9 +8,9 @@ const isJSONObject = function(value: JSONValue): value is JSONObject {
 };
 
 export const valueAsDict = (value: JSONValue) => {
-    if(!isJSONObject(value)) {
-        throw new Error("value is not an Object");
-    } else {
+    if (isJSONObject(value)) {
         return value;
+    } else {
+        throw new Error("value is not an Object");
     }
 };
