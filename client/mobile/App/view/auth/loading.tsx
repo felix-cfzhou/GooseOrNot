@@ -10,7 +10,7 @@ import { API } from "App/util/api/index";
 import { BaseScreenProps } from "App/view/index";
 
 export class AuthLoadingScreen extends React.Component<BaseScreenProps> {
-    public api = new API({ "Content-Type": "application/json" });
+    public api = new API();
 
     public componentDidMount() {
         AsyncStorage.multiGet(["username", "password"]).then(([[uKey, uValue], [pKey, pValue]]) => {
@@ -32,8 +32,11 @@ export class AuthLoadingScreen extends React.Component<BaseScreenProps> {
         return this.api.instance_post(
             "/login",
             {
-                username,
-                password,
+                type: "json",
+                content: {
+                    username,
+                    password,
+                },
             },
         ).then(() => {
             return AsyncStorage.multiSet([

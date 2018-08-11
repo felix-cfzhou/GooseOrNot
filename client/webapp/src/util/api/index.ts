@@ -76,7 +76,7 @@ export class API {
         const request = new Request(url, params);
         return Bluebird.resolve(fetch(request)).then((response) => {
             if (response.ok) {
-                return Bluebird.resolve(response.json())  as Bluebird<JSONValue>;
+                return Bluebird.resolve(response.json()) as Bluebird<JSONValue>;
             } else {
                 return response.json().then((data) => {
                     return Bluebird.reject(

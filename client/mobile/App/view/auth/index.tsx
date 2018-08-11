@@ -30,7 +30,7 @@ export class LoginScreen extends React.Component<BaseScreenProps, LoginScreenSta
         title: "Login",
     };
 
-    public api = new API({ "Content-Type": "application/json" });
+    public api = new API();
 
     constructor(props: BaseScreenProps) {
         super(props);
@@ -112,8 +112,11 @@ export class LoginScreen extends React.Component<BaseScreenProps, LoginScreenSta
         return this.api.instance_post(
             "/login",
             {
-                username,
-                password,
+                type: "json",
+                content: {
+                    username,
+                    password,
+                },
             },
         ).then(() => {
             return AsyncStorage.multiSet([
