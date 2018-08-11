@@ -1,7 +1,8 @@
+import * as Bluebird from "bluebird";
 import * as React from 'react';
 
 import { InputFile } from 'src/input/file';
-import { ImageFile } from 'src/models/image';
+import { ImageFile, parseImageFile } from 'src/models/image';
 import { API } from 'src/util/api';
 
 import logo from './logo.svg';
@@ -22,6 +23,7 @@ export class HomeHeader extends React.Component<{}> {
 interface HomePageState {
   upload: InputFile;
   images: ReadonlyArray<ImageFile>;
+  loading: boolean;
 }
 
 export class HomePage extends React.Component<{}, HomePageState> {
@@ -30,34 +32,17 @@ export class HomePage extends React.Component<{}, HomePageState> {
   constructor() {
     super({});
     this.state = {
+      loading: false,
       upload: new InputFile({
         initialState: null,
-        onValueChange: (event) => {
-          const files = event.target.files;
-          if (files && files.length > 0) {
-            this.api.instance_post(
-              '/signed_upload',
-              {
-                type: "file",
-                body: {
-                  upload_file: files[0],
-                },
-              },
-            );
-          }
-        },
+        onValueChange: this.onFileChange,
       }),
       images: [],
     };
   }
 
   public componentDidMount() {
-    this.api.instance_get('/image/query').then(
-      (values: Array<{id: number, file_name: string, url: string}>) => {
-        this.setState({
-          images: values,
-        });
-    });
+    this.getImages();
   }
 
   public render() {
@@ -67,5 +52,36 @@ export class HomePage extends React.Component<{}, HomePageState> {
         {this.state.images.map((im) => <img src={im.url} key={im.id}/>)}
       </div>
     );
+  }
+
+  private onFileChange: (event: React.ChangeEvent<HTMLInputElement>) => void
+  = (event) => {
+    const files = event.target.files;
+    if (files && files.length > 0) {
+      this.api.instance_post(
+        '/signed_upload',
+        {
+          type: "file",
+          body: {
+            upload_file: files[0],
+          },
+        },
+      ).then((image) =>
+        Bluebird.resolve(
+          this.setState({
+            images: Array.of(parseImageFile(image), ...this.state.images),
+          }),
+        ),
+      );
+    }
+  }
+
+  private getImages() {
+    return this.api.instance_get('/image/query').then(
+      (values: Array<ImageFile>) => {
+        this.setState({
+          images: values,
+        });
+    });
   }
 }

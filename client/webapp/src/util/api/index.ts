@@ -1,4 +1,5 @@
 import * as Bluebird from "bluebird";
+import { JSONObject, JSONValue } from "src/util/json";
 
 interface RequestErrorProps {
     content: string;
@@ -18,11 +19,6 @@ class RequestError extends Error {
 }
 
 type RequestMethod = "GET" | "POST" | "PUT" | "DELETE";
-
-interface JSONObject {[key: string]: JSONValue | undefined; }
-interface SpecificJSONArray<T extends JSONValue> extends Array<T> {}
-interface JSONArray extends SpecificJSONArray<JSONObject> {}
-type JSONValue = null | boolean | string | number | JSONArray | JSONObject;
 
 interface JsonBody {
     type: "json";
