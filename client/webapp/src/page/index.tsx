@@ -1,6 +1,7 @@
 import * as React from 'react';
 
 import { InputFile } from 'src/input/file';
+import { ImageFile } from 'src/models/image';
 import { API } from 'src/util/api';
 
 import logo from './logo.svg';
@@ -20,6 +21,7 @@ export class HomeHeader extends React.Component<{}> {
 
 interface HomePageState {
   upload: InputFile;
+  images: ReadonlyArray<ImageFile>;
 }
 
 export class HomePage extends React.Component<{}, HomePageState> {
@@ -45,13 +47,24 @@ export class HomePage extends React.Component<{}, HomePageState> {
           }
         },
       }),
+      images: [],
     };
+  }
+
+  public componentDidMount() {
+    this.api.instance_get('/image/query').then(
+      (values: Array<{id: number, file_name: string, url: string}>) => {
+        this.setState({
+          images: values,
+        });
+    });
   }
 
   public render() {
     return (
-      <div className="App">
+      <div className="HomePage">
         {this.state.upload.render({})}
+        {this.state.images.map((im) => <img src={im.url} key={im.id}/>)}
       </div>
     );
   }
