@@ -74,7 +74,6 @@ export class API {
             }
         }
         const params: RequestInit = {
-            headers: new Headers(),
             method: req.method,
             body,
         };

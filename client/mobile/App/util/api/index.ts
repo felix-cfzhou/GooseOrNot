@@ -51,7 +51,6 @@ export class API {
     }): Bluebird<JSONValue> {
         const url = `${this.baseUrl}/api${req.path}`;
         const params: RequestInit = {
-            headers: new Headers(),
             method: req.method,
             body: req.body ? JSON.stringify(req.body) : undefined,
         };
