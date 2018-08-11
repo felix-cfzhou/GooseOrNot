@@ -3,7 +3,6 @@ import Config from "react-native-config";
 import CookieManager from "react-native-cookies";
 
 import { JSONObject, JSONValue } from "App/util/json/index";
-import { AsyncStorage } from "react-native";
 
 interface RequestErrorProps {
     content: string;
@@ -60,12 +59,12 @@ export class API {
         method: RequestMethod,
         body?: Body,
     }): Bluebird<JSONValue> {
-        return CookieManager.get(this.baseUrl).then((res: {session: string} | null) => {
+        return CookieManager.get(this.baseUrl).then((res: {session?: string} | null) => {
             const url = `${this.baseUrl}/api${req.path}`;
             let body: RequestInit["body"];
             const headers = new Headers();
             headers.append("credentials", "same-origin");
-            if (res) {
+            if (res && res.session) {
                 headers.append("cookie", `session=${res.session}`);
             }
             if (req.body) {
@@ -91,10 +90,12 @@ export class API {
             const request = new Request(url, params);
             return Bluebird.resolve(fetch(request)).then((response) => {
                 const cookie = response.headers.get("set-cookie");
-                CookieManager.setFromResponse(
-                    this.baseUrl,
-                    cookie,
-                );
+                if (cookie) {
+                    CookieManager.setFromResponse(
+                        this.baseUrl,
+                        cookie,
+                    );
+                }
                 if (response.ok) {
                     return Bluebird.resolve(response.json() as Bluebird<JSONValue>);
                 } else {
