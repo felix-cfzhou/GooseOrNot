@@ -56,15 +56,25 @@ signed_upload = Blueprint('signed_upload', __name__)
 signed_upload_api = Api(signed_upload, prefix='/api')
 
 
+class FileStorageArgument(reqparse.Argument):
+    """argument class for flask-restful used
+    in all cases where file uploads need to be handled"""
+
+    def convert(self, value, op):
+        if self.type is FileStorage:
+            return value
+        else:
+            # TODO: Not sure what this does, will investigate
+            super(FileStorageArgument, self).convert(*args, **kwargs)  # noqa: F821
+
+
 class SignedUpload(Resource):
 
-    post_parser = reqparse.RequestParser()
-    post_parser.add_argument('upload_file', required=True, type=FileStorage, location="files")
+    post_parser = reqparse.RequestParser(argument_class=FileStorageArgument)
+    post_parser.add_argument('upload_file', required=True, type=FileStorage, location='files')
 
     @login_required
     def post(self):
-        from flask import request
-        print(request.data, request.stream, request.files, request.form)
         args = self.post_parser.parse_args()
         file = args['upload_file']
 
