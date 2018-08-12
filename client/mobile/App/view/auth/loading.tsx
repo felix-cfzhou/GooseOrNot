@@ -13,8 +13,8 @@ export class AuthLoadingScreen extends React.Component<BaseScreenProps> {
     public api = new API();
 
     public componentDidMount() {
-        AsyncStorage.multiGet(["username", "password"]).then(([[uKey, uValue], [pKey, pValue]]) => {
-            this.login(uValue, pValue);
+        AsyncStorage.multiGet(["username", "password"]).then(([usernamePair, passwordPair]) => {
+            this.login(usernamePair[1], passwordPair[1]);
         }).catch(() =>
             this.props.navigation.navigate("Auth"),
         );

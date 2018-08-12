@@ -8,7 +8,9 @@
     "run-android-staging": "ENVFILE=.env.staging react-native run-android",
     "run-android-prod": "ENVFILE=.env.prod react-native run-android",
     "build-android-prod": "export ENVFILE=.env.prod && cd android && ./gradlew assembleRelease && cd ..",
-    "test": "jest"
+    "test": "jest",
+    "tsc": "tsc --project . --noEmit --noErrorTruncation --skipLibCheck",
+    "tslint": "tslint --project ."
   },
   "dependencies": {
     "bluebird": "^3.5.1",

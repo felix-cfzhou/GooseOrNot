@@ -1,5 +1,7 @@
 import Bluebird from "bluebird";
+// @ts-ignore
 import Config from "react-native-config";
+// @ts-ignore
 import CookieManager from "react-native-cookies";
 
 import { JSONObject, JSONValue } from "App/util/json/index";
