@@ -20,14 +20,29 @@ jobs:
         steps:
             - checkout:
                 path: ~/GooseOrNot
+            - restore_cache:
+                key: server-deps-{{ .Branch }}-{{ checksum "requirements.txt" }}-{{ checksum "dev-requirements.txt" }}
             - run: python3 -m venv ~/.venv
             - run:
                 command: |
                     source ~/.venv/bin/activate
                     pip install -r dev-requirements.txt
+            - run:
+                command: |
+                    source ~/.venv/bin/activate
                     pip install -r requirements.txt
+            - run:
+                command: |
+                    source ~/.venv/bin/activate
                     flake8
-                    pytest
+            - run:
+                command: |
+                    source ~/.venv/bin/activate
+                    pytest -vvvv -s -r a
+            - save_cache:
+                key: server-deps-{{ .Branch }}-{{ checksum "requirements.txt" }}-{{ checksum "dev-requirements.txt" }}
+                paths:
+                    - ~/.venv
     webapp:
         working_directory: ~/GooseOrNot/client/webapp
         docker:
@@ -35,7 +50,13 @@ jobs:
         steps:
             - checkout:
                 path: ~/GooseOrNot
+            - restore_cache:
+                key: webapp-deps-{{ .Branch }}-{{ checksum "package.json" }}
             - run: yarn install
+            - save_cache:
+                key: webapp-deps-{{ .Branch }}-{{ checksum "package.json" }}
+                paths:
+                    - node_modules
             - run: yarn run tslint
             - run: yarn run tsc
             - run: yarn run eslint
@@ -46,7 +67,13 @@ jobs:
         steps:
             - checkout:
                 path: ~/GooseOrNot
+            - restore_cache:
+                key: mobile-deps-{{ .Branch }}-{{ checksum "package.json" }}
             - run: yarn install
+            - save_cache:
+                key: mobile-deps-{{ .Branch }}-{{ checksum "package.json" }}
+                paths:
+                    - node_modules
             - run: yarn run tslint
             - run: yarn run tsc
 workflows:
