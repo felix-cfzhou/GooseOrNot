@@ -22,7 +22,7 @@ def get_unique_secure_filename(filename):
 s3_bucket = Config.S3_BUCKET_NAME
 access_key_id = Config.AWS_ACCESS_KEY_ID
 access_key = Config.AWS_SECRET_ACCESS_KEY
-bucket_location = 'http://{}.s3.amazonaws.com/'.format(s3_bucket)
+bucket_location = 'https://{}.s3.amazonaws.com/'.format(s3_bucket)
 
 s3 = boto3.client(
         "s3",
@@ -89,8 +89,9 @@ class SignedUpload(Resource):
                     url=s3_url
                     )
             session.add(image)
+            session.commit()
 
-        json = dict(signed_upload="success", url=s3_url)
+            json = dict(id=image.id, file_name=image.file_name, url=s3_url)
 
         return json, 200
 

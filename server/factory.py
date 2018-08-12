@@ -15,6 +15,7 @@ from server.views.upload import upload
 from server.views.webapp import webapp
 from server.api import restful_home
 from server.api.signed_upload import signed_upload
+from server.api.image import image_query
 
 migrate = Migrate()
 
@@ -57,4 +58,5 @@ def create_app(override_config=None):
     app.register_blueprint(webapp)
     app.register_blueprint(restful_home)
     app.register_blueprint(signed_upload)
+    app.register_blueprint(image_query)
     return app
