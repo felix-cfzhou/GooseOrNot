@@ -17,7 +17,8 @@
     "test": "react-scripts-ts test --env=jsdom",
     "eject": "react-scripts-ts eject",
     "tsc": "tsc --project . --noEmit --noErrorTruncation",
-    "tslint": "tslint --project ."
+    "tslint": "tslint --project .",
+    "eslint": "eslint --color ."
   },
   "devDependencies": {
     "@types/bluebird": "^3.5.23",
