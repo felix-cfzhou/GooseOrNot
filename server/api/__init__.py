@@ -1,6 +1,6 @@
 from flask import Blueprint
 from flask_restful import Api, Resource, reqparse
-from flask_login import login_user, logout_user, current_user, login_required
+from flask_login import login_user, logout_user, login_required
 
 from server.models.user import User
 

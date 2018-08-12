@@ -2,10 +2,8 @@ from os import path
 import uuid
 
 from flask import Blueprint, current_app, request
-from flask_login import login_required, current_user
+from flask_login import login_required
 from werkzeug.utils import secure_filename
-from server.models.image import Image
-from server.database import db
 from server.views import jsonResponse
 
 

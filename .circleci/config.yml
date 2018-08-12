@@ -1,0 +1,60 @@
+version: 2
+jobs:
+    server:
+        working_directory: ~/GooseOrNot
+        docker:
+            - image: circleci/python:3.6.6-stretch-browsers
+              environment:
+                  APP_SETTINGS: config.TestingConfig
+                  DATABASE_URL: postgresql://ubuntu@localhost/goose_or_not_testing
+                  TESTING_DATABASE_URL: postgresql://ubuntu@localhost/goose_or_not_testing
+                  SERVER_NAME: "localhost:5000"
+                  S3_BUCKET_NAME: goose-or-not-dev
+                  AWS_ACCESS_KEY_ID: "ID"
+                  AWS_SECRET_ACCESS_KEY: "KEY"
+            - image: circleci/postgres:10.4-alpine-ram
+              environment:
+                  POSTGRES_USER: ubuntu
+                  POSTGRES_DB: goose_or_not_testing
+                  POSTGRES_PASSWORD: ""
+        steps:
+            - checkout:
+                path: ~/GooseOrNot
+            - run: python3 -m venv ~/.venv
+            - run:
+                command: |
+                    source ~/.venv/bin/activate
+                    pip install -r dev-requirements.txt
+                    pip install -r requirements.txt
+                    flake8
+                    pytest
+    webapp:
+        working_directory: ~/GooseOrNot/client/webapp
+        docker:
+            - image: circleci/node:10.8.0-stretch-browsers
+        steps:
+            - checkout:
+                path: ~/GooseOrNot
+            - run: yarn install
+            - run: yarn run tslint
+            - run: yarn run tsc
+            - run: yarn run eslint
+    mobile:
+        working_directory: ~/GooseOrNot/client/mobile
+        docker:
+            - image: circleci/node:10.8.0-stretch-browsers
+        steps:
+            - checkout:
+                path: ~/GooseOrNot
+            - run: yarn install
+            - run: yarn run tslint
+            - run: yarn run tsc
+workflows:
+    version: 2
+    test_and_lint:
+        jobs:
+            - server
+            - webapp
+            - mobile
+
+
