@@ -15,7 +15,9 @@
     "build": "webpack --config webpack.dev.config.js --watch --progress",
     "build-pro": "webpack --config webpack.pro.config.js",
     "test": "react-scripts-ts test --env=jsdom",
-    "eject": "react-scripts-ts eject"
+    "eject": "react-scripts-ts eject",
+    "tsc": "tsc --project . --noEmit --noErrorTruncation",
+    "tslint": "tslint --project ."
   },
   "devDependencies": {
     "@types/bluebird": "^3.5.23",
