@@ -21,3 +21,4 @@ export function parseImageFile(value: JSONValue): ImageFile {
         throw new Error("parsed unexpected object");
     }
 }
+
