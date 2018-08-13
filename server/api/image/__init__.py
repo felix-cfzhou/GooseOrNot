@@ -1,10 +1,11 @@
 from flask import Blueprint, current_app, abort
-from flask_login import current_user, login_required
+from flask_login import current_user
 from flask_restful import Api, Resource, reqparse
 from werkzeug.datastructures import FileStorage
 
 from server.database import db
 from server.models.image import Image
+from server.api import authenticated_endpoint
 from server.api.image.upload import upload_file_to_s3
 
 
@@ -45,7 +46,7 @@ class ImageEndpoint(Resource):
     post_parser = reqparse.RequestParser(argument_class=FileStorageArgument)
     post_parser.add_argument('upload_file', required=True, type=FileStorage, location='files')
 
-    @login_required
+    @authenticated_endpoint
     def post(self):
         args = self.post_parser.parse_args()
         file = args['upload_file']
@@ -70,7 +71,7 @@ class ImageEndpoint(Resource):
 
         return json, 200
 
-    @login_required
+    @authenticated_endpoint
     def get(self):
         images = current_user.images
 
