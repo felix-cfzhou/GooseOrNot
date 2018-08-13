@@ -11,11 +11,9 @@ from server.socket import socketio
 from server.sockets import sockets
 from server.redis import conn
 from server.views import home
-from server.views.upload import upload
 from server.views.webapp import webapp
 from server.api import restful_home
-from server.api.signed_upload import signed_upload
-from server.api.image import image_query
+from server.api.image import image_endpoint
 
 migrate = Migrate()
 
@@ -54,9 +52,7 @@ def create_app(override_config=None):
 
     app.register_blueprint(sockets)
     app.register_blueprint(home)
-    app.register_blueprint(upload)
     app.register_blueprint(webapp)
     app.register_blueprint(restful_home)
-    app.register_blueprint(signed_upload)
-    app.register_blueprint(image_query)
+    app.register_blueprint(image_endpoint)
     return app

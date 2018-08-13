@@ -59,7 +59,7 @@ export class HomePage extends React.Component<{}, HomePageState> {
     const files = event.target.files;
     if (files && files.length > 0) {
       this.api.instance_post(
-        '/signed_upload',
+        '/image',
         {
           type: "file",
           content: {
@@ -77,7 +77,7 @@ export class HomePage extends React.Component<{}, HomePageState> {
   }
 
   private getImages() {
-    return this.api.instance_get('/image/query').then(
+    return this.api.instance_get('/image').then(
       (values: Array<ImageFile>) => {
         this.setState({
           images: values,

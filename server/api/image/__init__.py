@@ -1,59 +1,31 @@
-import boto3
-import uuid
-
-from flask import Blueprint, current_app
+from flask import Blueprint, current_app, abort
 from flask_login import current_user, login_required
 from flask_restful import Api, Resource, reqparse
-from werkzeug.utils import secure_filename
 from werkzeug.datastructures import FileStorage
 
 from server.database import db
 from server.models.image import Image
-from config import Config
+from server.api.image.upload import upload_file_to_s3
 
 
-def get_unique_secure_filename(filename):
-    clean_name = secure_filename(filename)
-    unique_name = str(uuid.uuid4()) + clean_name
-
-    return unique_name
+image_endpoint = Blueprint('image_endpoint', __name__)
+image_api = Api(image_endpoint, prefix='/api')
 
 
-s3_bucket = Config.S3_BUCKET_NAME
-access_key_id = Config.AWS_ACCESS_KEY_ID
-access_key = Config.AWS_SECRET_ACCESS_KEY
-bucket_location = 'https://{}.s3.amazonaws.com/'.format(s3_bucket)
-
-s3 = boto3.client(
-        "s3",
-        aws_access_key_id=access_key_id,
-        aws_secret_access_key=access_key
-        )
-
-
-def upload_file_to_s3(file, acl="public-read"):
-    unique_secure_filename = get_unique_secure_filename(file.filename)
-
-    try:
-        s3.upload_fileobj(
-                file,
-                s3_bucket,
-                unique_secure_filename,
-                ExtraArgs={
-                    "ACL": acl,
-                    "ContentType": file.content_type
-                    }
-                )
-    except Exception as e:
-        print("error: ", e)
-        return e
-
-    eventual_url = "{}{}".format(bucket_location, unique_secure_filename)
-    return eventual_url, unique_secure_filename
+IMAGES = set([
+        'jpg',
+        'jpeg',
+        'jpe',
+        'png',
+        'tif',
+        'tiff',
+        'fpx'
+        ])
 
 
-signed_upload = Blueprint('signed_upload', __name__)
-signed_upload_api = Api(signed_upload, prefix='/api')
+def allowed_file(filename):
+    return '.' in filename and \
+            filename.rsplit('.', 1)[1].lower() in IMAGES
 
 
 class FileStorageArgument(reqparse.Argument):
@@ -68,7 +40,7 @@ class FileStorageArgument(reqparse.Argument):
             super(FileStorageArgument, self).convert(*args, **kwargs)  # noqa: F821
 
 
-class SignedUpload(Resource):
+class ImageEndpoint(Resource):
 
     post_parser = reqparse.RequestParser(argument_class=FileStorageArgument)
     post_parser.add_argument('upload_file', required=True, type=FileStorage, location='files')
@@ -77,6 +49,9 @@ class SignedUpload(Resource):
     def post(self):
         args = self.post_parser.parse_args()
         file = args['upload_file']
+
+        if not allowed_file(file.filename):
+            abort(400)
 
         s3_url, unique_secure_filename = upload_file_to_s3(file)
 
@@ -95,5 +70,19 @@ class SignedUpload(Resource):
 
         return json, 200
 
+    @login_required
+    def get(self):
+        images = current_user.images
 
-signed_upload_api.add_resource(SignedUpload, '/signed_upload')
+        json = []
+        for im in images:
+            json.append({
+                "id": im.id,
+                "file_name": im.file_name,
+                "url": im.url
+                })
+
+        return json, 200
+
+
+image_api.add_resource(ImageEndpoint, '/image')

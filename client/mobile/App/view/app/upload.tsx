@@ -37,18 +37,18 @@ export class UploadScreen extends React.Component<BaseScreenProps, UploadScreenS
                     data={this.state.images}
                     renderItem={(item) =>
                         <Image
-                            key={item.item.id}
                             source={{uri: item.item.url}}
                             style={{width: 150, height: 150}}
                         />
                     }
+                    keyExtractor={(item) => item.id.toString()}
                 />
             </View>
         );
     }
 
     private getImages() {
-        return this.api.instance_get("/image/query").then(
+        return this.api.instance_get("/image").then(
             (values) => {
                 if (Array.isArray(values)) {
                     const images = values.map((val) => parseImageFile(val));
