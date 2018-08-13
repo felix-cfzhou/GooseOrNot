@@ -50,7 +50,7 @@ class ImageEndpoint(Resource):
         args = self.post_parser.parse_args()
         file = args['upload_file']
 
-        if not allowed_file(file):
+        if not allowed_file(file.filename):
             abort(400)
 
         s3_url, unique_secure_filename = upload_file_to_s3(file)
