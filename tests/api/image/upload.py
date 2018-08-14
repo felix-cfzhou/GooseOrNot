@@ -4,12 +4,12 @@ import boto3
 from moto import mock_s3
 from werkzeug import FileStorage
 
-from server.api.signed_upload import s3_bucket, upload_file_to_s3
+from server.api.image.upload import s3_bucket, upload_file_to_s3
 
 
 def test_unauth_signed_upload(client):
     response = client.post(
-            '/api/signed_upload',
+            '/api/image',
             data=dict(
                 upload_file=(
                     io.BytesIO(b'test'),

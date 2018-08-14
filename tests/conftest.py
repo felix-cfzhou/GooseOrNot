@@ -7,8 +7,8 @@ from rq import Queue
 from server.factory import create_app
 from server.database import db as _db
 from server.models.user import User
-from server.models.image import Image
-from server.models.task import Task
+from server.models.image import Image  # noqa: F401
+from server.models.task import Task  # noqa: F401
 from config import TestingConfig
 
 

@@ -1,8 +1,20 @@
-from flask import Blueprint
+import functools
+
+from flask import Blueprint, abort
 from flask_restful import Api, Resource, reqparse
-from flask_login import login_user, logout_user, current_user, login_required
+from flask_login import current_user, login_user, logout_user
 
 from server.models.user import User
+
+
+def authenticated_endpoint(f):
+    @functools.wraps(f)
+    def wrapped(*args, **kwargs):
+        if not current_user.is_authenticated:
+            abort(403)
+        else:
+            return f(*args, **kwargs)
+    return wrapped
 
 
 restful_home = Blueprint('api_home', __name__)
@@ -35,7 +47,7 @@ class Login(Resource):
 
 class Logout(Resource):
 
-    @login_required
+    @authenticated_endpoint
     def post(self):
         logout_user()
 

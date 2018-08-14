@@ -1,4 +1,5 @@
 pip-tools
+flake8
 pytest
 moto
 fakeredis

@@ -7,7 +7,8 @@
     "linterOptions": {
         "exclude": [
             "config/**/*.js",
-            "node_modules/**/*.ts"
+            "node_modules/**/*.ts",
+            "webpack*.js"
         ]
     },
     "rules": {
@@ -16,6 +17,7 @@
         "max-classes-per-file": [true, 5],
         "jsx-boolean-value": false,
         "jsx-no-lambda": false,
+        "only-arrow-functions": false,
         "semicolon": [true, "always"],
         "trailing-comma": [true, {
             "multiline": "always",

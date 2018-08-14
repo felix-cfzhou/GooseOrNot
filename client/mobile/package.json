@@ -8,13 +8,16 @@
     "run-android-staging": "ENVFILE=.env.staging react-native run-android",
     "run-android-prod": "ENVFILE=.env.prod react-native run-android",
     "build-android-prod": "export ENVFILE=.env.prod && cd android && ./gradlew assembleRelease && cd ..",
-    "test": "jest"
+    "test": "jest",
+    "tsc": "tsc --project . --noEmit --noErrorTruncation --skipLibCheck",
+    "tslint": "tslint --project ."
   },
   "dependencies": {
     "bluebird": "^3.5.1",
     "react": "16.4.1",
     "react-native": "0.56.0",
     "react-native-config": "^0.11.5",
+    "react-native-cookies": "^3.3.0",
     "react-navigation": "^2.11.2"
   },
   "devDependencies": {
@@ -29,6 +32,7 @@
     "jest": "23.4.1",
     "react-native-typescript-transformer": "^1.2.10",
     "react-test-renderer": "16.4.1",
+    "tslint": "^5.11.0",
     "typescript": "^2.9.2"
   },
   "jest": {
