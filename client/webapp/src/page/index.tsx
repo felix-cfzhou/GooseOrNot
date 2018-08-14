@@ -14,10 +14,14 @@ export class HomeHeader extends React.Component<{}> {
   }
 }
 
+const HomePageStyle = {
+  backgroundColor: "#44014C"
+}
+
 export class HomePage extends React.Component<{}> {
   public render() {
     return (
-      <div className="App">
+      <div className="App" style ={HomePageStyle}>
         {/* FIXME: make upload compartment */}
         <form
           action={"/upload/photos"}
