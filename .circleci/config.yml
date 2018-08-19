@@ -60,6 +60,7 @@ jobs:
             - run: yarn run tslint
             - run: yarn run tsc
             - run: yarn run eslint
+            - run: yarn run build-pro
     mobile:
         working_directory: ~/GooseOrNot/client/mobile
         docker:
@@ -83,5 +84,3 @@ workflows:
             - server
             - webapp
             - mobile
-
-
