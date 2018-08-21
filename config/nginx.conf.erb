@@ -29,7 +29,7 @@ http {
     upstream app_server {
         ip_hash;
 
-        server 127.0.0.1:5000;
+        server unix:/tmp/nginx.socket fail_timeout=0;
     }
 
     map $http_upgrade $connection_upgrade {
