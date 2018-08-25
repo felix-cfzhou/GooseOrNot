@@ -67,8 +67,10 @@ ipython -i -m server.scripts.interactive
 ```
 
 
-### TensorFlow
-This project was partially inspired by Professor Andrew Ng's Deep Learning Specialization on Coursera. Definitely shoutout to him for the excellent material.
+### XGBoost
+A variety of architectures were considered but given the limited training data, computing power, and desired performance, xgboost was chosen.
+
+Other options explored include nnlib, sklearn, and keras.
 
 ### Redis Task Queue
 The redis task queue is used to process client requests to run our neural network.
