@@ -10,11 +10,11 @@ model_name = path.join(dir_loc, 'goose.model')
 
 
 def is_goose(filename):
-    im = Image.open(filename).convert('RGB').reshape((256, 256), Image.ANTIALIAS)
+    im = Image.open(filename).convert('RGB').resize((256, 256), Image.ANTIALIAS)
     im = np.array(im).reshape(1, -1)/255.
-    im = xgb.DMatrx(im)
+    im = xgb.DMatrix(im)
 
-    bst = xgb.Boost({'nthread': 2})
+    bst = xgb.Booster({'nthread': 2})
     bst.load_model(model_name)
 
     pred = np.squeeze(bst.predict(im))
