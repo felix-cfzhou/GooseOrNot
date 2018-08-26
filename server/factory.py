@@ -14,6 +14,7 @@ from server.views import home
 from server.views.webapp import webapp
 from server.api import restful_home
 from server.api.image import image_endpoint
+from server.api.task import task_endpoint
 
 migrate = Migrate()
 
@@ -55,4 +56,5 @@ def create_app(override_config=None):
     app.register_blueprint(webapp)
     app.register_blueprint(restful_home)
     app.register_blueprint(image_endpoint)
+    app.register_blueprint(task_endpoint)
     return app

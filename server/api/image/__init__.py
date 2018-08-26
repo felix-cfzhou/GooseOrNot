@@ -75,13 +75,7 @@ class ImageEndpoint(Resource):
     def get(self):
         images = current_user.images
 
-        json = []
-        for im in images:
-            json.append({
-                "id": im.id,
-                "file_name": im.file_name,
-                "url": im.url
-                })
+        json = [dict(id=im.id, file_name=im.file_name, url=im.url) for im in images]
 
         return json, 200
 
