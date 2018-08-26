@@ -24,6 +24,10 @@ class Image(db.Model):
             backref='image',
             lazy='dynamic'
             )
+    is_goose = db.Column(
+            db.Boolean,
+            nullable=True,
+            )
     url = db.Column(
             db.String(),
             nullable=False,
