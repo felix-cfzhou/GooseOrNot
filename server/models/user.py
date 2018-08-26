@@ -1,6 +1,5 @@
 from server.database import db
 from server.login import login_manager
-from server.models.task import Task
 from server.models.image import Image
 
 from time import time
