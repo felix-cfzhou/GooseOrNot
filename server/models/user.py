@@ -86,15 +86,6 @@ class User(UserMixin, db.Model):
     def get_images(self):
         return Image.query.filter_by(user_id=self.id)
 
-    def launch_task(self, task, params, name, description, priority, *args, **kwargs):
-        rq_job = current_app.task_queues[priority].enqueue_call(func=task, args=params, *args, **kwargs)
-        task = Task(id=rq_job.get_id(), name=name, description=description, user_id=self.id)
-        db.session.add(task)
-        return task
-
-    def get_tasks_in_progress(self, name):
-        return Task.query.filter_by(name=name, user_id=self.id, complete=False).all()
-
 
 @login_manager.user_loader
 def load_user(id):

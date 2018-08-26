@@ -25,6 +25,10 @@ class Task(db.Model):
             db.Integer,
             db.ForeignKey('users.id', name='FK_users_tasks')
             )
+    image_id = db.Column(
+            db.Integer,
+            db.ForeignKey('images.id')
+            )
     complete = db.Column(
             db.Boolean,
             default=False,
