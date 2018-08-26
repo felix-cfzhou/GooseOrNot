@@ -53,6 +53,14 @@ class Task(db.Model):
             return None
         return rq_job
 
-    def get_progress(self):
+    def is_done(self):
+        if self.complete:
+            return True
         job = self.get_rq_job()
-        return job.meta.get('progress', 0) if job is not None else 100
+
+        if job is None:
+            self.complete = True
+            db.session.commit()
+            return True
+
+        return False
