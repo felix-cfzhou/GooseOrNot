@@ -17,7 +17,9 @@ def task_is_goose(image):
     im_path = path.join(home_path, '.tmp/GooseOrNot/pic', image.file_name)
 
     req = requests.get(image.url)
-    open(im_path, 'wb').write(req.content)
+    path.makedirs(path.dirname(im_path), exist_ok=True)
+    with open(im_path, 'wb') as f:
+        f.write(req.content)
 
     pred = is_goose(im_path)
     response = dict(id=image.id, isGoose=pred)

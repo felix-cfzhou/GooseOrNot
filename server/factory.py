@@ -19,11 +19,6 @@ from server.api.task import task_endpoint
 migrate = Migrate()
 
 
-def create_dir_if_none(folderName):
-    if not os.path.exists(folderName):
-        os.makedirs(folderName)
-
-
 def create_app(override_config=None):
     app = Flask(__name__)
 
@@ -32,8 +27,6 @@ def create_app(override_config=None):
 
     if override_config is not None:
         app.config.from_object(override_config)
-
-    create_dir_if_none(app.config['PHOTO_UPLOAD_FOLDER'])
 
     db.init_app(app)
 
