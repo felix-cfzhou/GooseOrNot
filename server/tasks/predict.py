@@ -1,4 +1,4 @@
-from os import path
+from os import path, makedirs
 from uuid import uuid4
 
 import requests
@@ -17,7 +17,7 @@ def task_is_goose(image):
     im_path = path.join(home_path, '.tmp/GooseOrNot/pic', image.file_name)
 
     req = requests.get(image.url)
-    path.makedirs(path.dirname(im_path), exist_ok=True)
+    makedirs(path.dirname(im_path), exist_ok=True)
     with open(im_path, 'wb') as f:
         f.write(req.content)
 
@@ -28,6 +28,7 @@ def task_is_goose(image):
 
     image.is_goose = pred
     job = get_current_job()
+
     task = Task.query.filter_by(id=job.get_id()).first()
     task.complete = True
 
