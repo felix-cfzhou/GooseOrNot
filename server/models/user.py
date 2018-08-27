@@ -77,14 +77,6 @@ class User(UserMixin, db.Model):
     def check_password(self, password):
         return check_password_hash(self.password_hash, password)
 
-    def add_image(self, file_name):
-        im = Image(file_name=file_name, user_id=self.id)
-        db.session.add(im)
-        return im
-
-    def get_images(self):
-        return Image.query.filter_by(user_id=self.id)
-
 
 @login_manager.user_loader
 def load_user(id):
