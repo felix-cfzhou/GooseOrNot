@@ -3,4 +3,5 @@ flake8
 pytest
 moto
 fakeredis
+requests_mock
 
