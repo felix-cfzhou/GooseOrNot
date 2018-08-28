@@ -18,5 +18,6 @@ def is_goose(filename):
     bst.load_model(model_name)
 
     pred = np.squeeze(bst.predict(im))
+    print(pred)
 
     return pred >= 0.5
