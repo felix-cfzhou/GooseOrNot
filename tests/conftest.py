@@ -25,7 +25,7 @@ def goose_pic_filename():
 
 @pytest.fixture(scope='session')
 def notgoose_pic_filename():
-    return path.join(curr_dir, 'data/fractal_background.jpg')
+    return path.join(curr_dir, 'data/selfie.jpg')
 
 
 @pytest.fixture(scope='session')
