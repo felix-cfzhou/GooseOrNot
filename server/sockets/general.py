@@ -9,17 +9,17 @@ from server.sockets import authenticated_socket
 socket_general = Blueprint('socket_general', __name__)
 
 
-NAMESPACE_TEST = '/socket/general'
+NAMESPACE_GENERAL = '/socket/general'
 
 
-@socketio.on('connect', namespace=NAMESPACE_TEST)
+@socketio.on('connect', namespace=NAMESPACE_GENERAL)
 @authenticated_socket
 def general_socket_connect():
     join_room(str(current_user.id))
     send('connected to /socket/general')
 
 
-@socketio.on('disconnect', namespace=NAMESPACE_TEST)
+@socketio.on('disconnect', namespace=NAMESPACE_GENERAL)
 @authenticated_socket
 def general_socket_disconnect():
     print('client disconnected from test socket')
