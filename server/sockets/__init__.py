@@ -7,7 +7,7 @@ from flask_socketio import send, disconnect
 from server.socket import socketio
 
 
-sockets = Blueprint('sockets', __name__)
+socket_test = Blueprint('socket_test', __name__)
 
 
 def authenticated_socket(f):
