@@ -24,7 +24,7 @@ def task_is_goose(image):
     pred = is_goose(im_path)
     response = dict(id=image.id, isGoose=pred)
 
-    socketio.emit('task is goose', response, room=current_user.id)
+    socketio.emit('task is goose', response, room=str(current_user.id))
 
     image.is_goose = pred
     job = get_current_job()

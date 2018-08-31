@@ -9,6 +9,7 @@ from server.login import login_manager
 from server.mail import mail
 from server.socket import socketio
 from server.sockets import socket_test
+from server.sockets.general import socket_general
 from server.redis import conn
 from server.views import home
 from server.views.webapp import webapp
@@ -45,6 +46,7 @@ def create_app(override_config=None):
             }
 
     app.register_blueprint(socket_test)
+    app.register_blueprint(socket_general)
     app.register_blueprint(home)
     app.register_blueprint(webapp)
     app.register_blueprint(restful_home)
