@@ -1,3 +1,5 @@
+from os import path
+
 import pytest
 
 from flask_migrate import upgrade, downgrade
@@ -10,6 +12,19 @@ from server.models.user import User
 from server.models.image import Image  # noqa: F401
 from server.models.task import Task  # noqa: F401
 from config import TestingConfig
+
+
+curr_dir = path.abspath(path.dirname(__file__))
+
+
+@pytest.fixture(scope='session')
+def goose_pic_filename():
+    return path.join(curr_dir, 'data/goose_canada.jpg')
+
+
+@pytest.fixture(scope='session')
+def notgoose_pic_filename():
+    return path.join(curr_dir, 'data/fractal_background.jpg')
 
 
 @pytest.fixture(scope='session')
