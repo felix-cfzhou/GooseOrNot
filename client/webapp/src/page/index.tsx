@@ -20,6 +20,31 @@ export class HomeHeader extends React.Component<{}> {
   }
 }
 
+<<<<<<< HEAD
+const HomePageStyle = {
+  backgroundColor: "#44014C"
+}
+
+export class HomePage extends React.Component<{}> {
+  public render() {
+    return (
+      <div className="App" style ={HomePageStyle}>
+        {/* FIXME: make upload compartment */}
+        <form
+          action={"/upload/photos"}
+          method={"POST"}
+          encType={"multipart/form-data"}
+        >
+          <input
+            type={"file"}
+            name={"photo"}
+            multiple={true}
+          />
+          <input
+            type={"submit"}
+          />
+        </form>
+=======
 interface HomePageState {
   upload: InputFile;
   images: ReadonlyArray<ImageFile>;
@@ -50,6 +75,7 @@ export class HomePage extends React.Component<{}, HomePageState> {
       <div className="HomePage">
         {this.state.upload.render({})}
         {this.state.images.map((im) => <img src={im.url} key={im.id}/>)}
+>>>>>>> 7dafe13e3e743811ce4fd4066ba55fb3e113cd91
       </div>
     );
   }
