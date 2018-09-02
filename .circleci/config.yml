@@ -17,6 +17,9 @@ jobs:
                   POSTGRES_USER: ubuntu
                   POSTGRES_DB: goose_or_not_testing
                   POSTGRES_PASSWORD: ""
+            - image: redis
+              environment:
+                  REDISTOGO_URL: "redis://localhost:6379"
         steps:
             - checkout:
                 path: ~/GooseOrNot
