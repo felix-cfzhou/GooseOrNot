@@ -1,16 +1,223 @@
-<h1>Sign In</h1>
-<form action="" method="post" novalidate>
-    {{ form.hidden_tag() }}
-    <p>
-    {{ form.username.label }}<br>
-    {{ form.username(size=32) }}
-    </p>
-    <p>
-    {{ form.password.label }}<br>
-    {{ form.password(size=32) }}
-    </p>
-    <p>{{ form.remember_me() }} {{ form.remember_me.label }}</p>
-    <p>{{ form.submit() }}</p>
-</form>
-<p> New User? <a href="{{ url_for('home.register') }}"> Click to Register </a> </p>
-<p> Forgot Your Password? <a href="{{ url_for('home.reset_password_request') }}"> Click to Reset it </a> </p>
+<head>
+    <style>
+
+        @import url(https://fonts.googleapis.com/css?family=Roboto:300);
+
+        .login-page {
+        width: 360px;
+        padding: 8% 0 0;
+        margin: auto;
+        }
+        .form {
+        position: relative;
+        z-index: 1;
+        background: #FFFFFF;
+        max-width: 480px;
+        margin: 0 auto 100px;
+        padding: 45px;
+        text-align: center;
+        box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+        }
+        .form input {
+        font-family: "Roboto", sans-serif;
+        outline: 0;
+        background: #f2f2f2;
+        width: 100%;
+        border: 0;
+        margin: 0 0 15px;
+        padding: 15px;
+        box-sizing: border-box;
+        font-size: 18px;
+        }
+
+        input[type = submit]{
+            background-color:#2196F3;
+            color:white;
+            cursor: pointer;
+            margin-top: 15px
+        }
+        input[type = submit]:hover{
+            background-color:#128aea;
+
+        }
+        .warnings{
+            font-size: 16px;
+        }
+        
+        
+        
+        .remember1 {
+            float:left;
+            
+            
+        }
+
+        .remember2 {
+            float:left;
+            margin-left: 10px;
+        
+        }
+
+        input[type=checkbox].css-checkbox {
+            position: absolute;
+            overflow: hidden;
+            clip: rect(0 0 0 0);
+            height:1px;
+            width:1px;
+            margin:-1px;
+            padding:0;
+            border:0;
+        }
+
+        input[type=checkbox].css-checkbox + label.css-label {
+            padding-left:20px;
+            height:15px;
+            display:inline-block;
+            line-height:15px;
+            background-repeat:no-repeat;
+            background-position: 0 0;
+            font-size:15px;
+            vertical-align:middle;
+            cursor:pointer;
+        }
+
+        input[type=checkbox].css-checkbox:checked + label.css-label {
+            background-position: 0 -15px;
+        }
+
+        .css-label{
+            background-image:url(http://csscheckbox.com/checkboxes/lite-blue-check.png);
+        }
+        
+        
+
+       
+       /*
+
+        .container {
+            display: block;
+            position:relative;
+            margin-bottom: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+        
+        
+
+        /* Hide the browser's default checkbox
+        .container input {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        /* Create a custom checkbox 
+        .checkmark {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 18px;
+            width: 18px;
+            background-color: #eee;
+        }
+
+        /* On mouse-over, add a grey background color 
+        .container:hover input ~ .checkmark {
+            background-color: #ccc;
+        }
+
+        /* When the checkbox is checked, add a blue background 
+        .container input:checked ~ .checkmark {
+            background-color: #2196F3;
+        }
+
+        /* Create the checkmark/indicator (hidden when not checked) 
+        .checkmark:after {
+            content: "";
+            position: absolute;
+            display: none;
+        }
+
+        /* Show the checkmark when checked 
+        .container input:checked ~ .checkmark:after {
+            display: block;
+        }
+
+        /* Style the checkmark/indicator
+        .container .checkmark:after {
+            left: 6px;
+            top: 3px;
+            width: 3px;
+            height: 8px;
+            border: solid white;
+            border-width: 0 3px 3px 0;
+            -webkit-transform: rotate(45deg);
+            -ms-transform: rotate(45deg);
+            transform: rotate(45deg);
+        }
+
+        */
+
+        
+        
+
+        
+
+        
+
+        body {
+            background: #3ea2f2;
+            background: -webkit-linear-gradient(right, #3ea2f2, #2196F3);
+            background: -moz-linear-gradient(right, #3ea2f2, #2196F3);
+            background: -o-linear-gradient(right, #3ea2f2, #2196F3);
+            background: linear-gradient(to left, #3ea2f2, #2196F3);
+            font-family: "Roboto", sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+    
+
+
+    </style>
+</head>
+
+
+<div class = "login-page">
+    <div class = "form">
+            <form action="" method="post" class = "login-form" novalidate>
+                    {{ form.hidden_tag() }}
+                    <p>
+                    {{ form.username(type="text" , placeholder = "username") }}
+                    </p>
+                    <p>
+                    {{ form.password(type ="password" , placeholder = "password") }}
+                    </p>
+                    <div class = "remember">
+                            <table>
+
+                                <tr>
+                                    <td>
+
+                                            {{ form.remember_me(class = "css-checkbox", type = "checkbox") }}
+                                            {{ form.remember_me.label(for = "remember_me", class = "css-label") }}
+
+
+                                    </td>
+
+                                </tr>
+                            
+                            </table>
+                    </div>                   
+                    <p>{{ form.submit(type = "submit") }}</p>
+                </form>
+                <p class = "warnings"> New User? <a href="{{ url_for('home.register') }}"> Click to Register </a> </p>
+                <p class = "warnings"> Forgot Your Password? <a href="{{ url_for('home.reset_password_request') }}"> Click to Reset </a> </p>
+
+    </div>
+</div>
+
+
