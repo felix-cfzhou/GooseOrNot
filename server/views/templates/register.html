@@ -1,103 +1,99 @@
-
 <head>
-        <style>
-    
-            @import url(https://fonts.googleapis.com/css?family=Roboto:300);
-    
-            .register-page {
-                width: 480px;
-                padding: 6% 0 0;
-                margin: auto;
-            }
-            .form {
-                position: relative;
-                z-index: 1;
-                background: #FFFFFF;
-                max-width: 480px;
-                margin: 0 auto 100px;
-                padding: 45px;
-                text-align: center;
-                box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
-            }
-            .form input {
-                font-family: "Roboto", sans-serif;
-                outline: 0;
-                background: #f2f2f2;
-                width: 100%;
-                border: 0;
-                margin: 0 0 15px;
-                padding: 15px;
-                box-sizing: border-box;
-                font-size: 18px;
-            }
-    
-            input[type = submit]{
-                background-color:#2196F3;
-                color:white;
-                cursor: pointer;
-                margin-top: 15px
-            }
-            input[type = submit]:hover{
-                background-color:#128aea;
-    
-            }
-            .warnings{
-                font-size: 16px;
-            }   
-    
-            body {
-                background: #3ea2f2;
-                background: -webkit-linear-gradient(right, #3ea2f2, #2196F3);
-                background: -moz-linear-gradient(right, #3ea2f2, #2196F3);
-                background: -o-linear-gradient(right, #3ea2f2, #2196F3);
-                background: linear-gradient(to left, #3ea2f2, #2196F3);
-                font-family: "Roboto", sans-serif;
-                -webkit-font-smoothing: antialiased;
-                -moz-osx-font-smoothing: grayscale;
-            }
-        
-    
-    
+    <style>
+        @import url(https://fonts.googleapis.com/css?family=Roboto:300);
+
+        .register-page {
+            width: 480px;
+            padding: 6% 0 0;
+            margin: auto;
+        }
+
+        .form {
+            position: relative;
+            z-index: 1;
+            background: #FFFFFF;
+            max-width: 480px;
+            margin: 0 auto 100px;
+            padding: 45px;
+            text-align: center;
+            box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+        }
+
+        .form input {
+            font-family: "Roboto", sans-serif;
+            outline: 0;
+            background: #f2f2f2;
+            width: 100%;
+            border: 0;
+            margin: 0 0 15px;
+            padding: 15px;
+            box-sizing: border-box;
+            font-size: 18px;
+        }
+
+        input[type=submit] {
+            background-color: #2196F3;
+            color: white;
+            cursor: pointer;
+            margin-top: 15px
+        }
+
+        input[type=submit]:hover {
+            background-color: #128aea;
+
+        }
+
+        .warnings {
+            font-size: 16px;
+        }
+
+        body {
+            background: #3ea2f2;
+            background: -webkit-linear-gradient(right, #3ea2f2, #2196F3);
+            background: -moz-linear-gradient(right, #3ea2f2, #2196F3);
+            background: -o-linear-gradient(right, #3ea2f2, #2196F3);
+            background: linear-gradient(to left, #3ea2f2, #2196F3);
+            font-family: "Roboto", sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
     </style>
 </head>
 
 
-<div class = "register-page">
-        <div class = "form">
-                <form action="" method="post" class = "register-form">
-                        {{ form.hidden_tag() }}
-                        <p>
-                        {{ form.username(type="text" , placeholder = "username") }}
-                        {% for error in form.username.errors %}
-                        <span style="color: red;">[{{ error }}]</span>
-                        {% endfor %}
-                        </p>
-                        <p>
-                        {{ form.email(type ="text" , placeholder = "email") }}
-                        {% for error in form.email.errors %}
-                        <span style="color: red;">[{{ error }}]</span>
-                        {% endfor %}
-                        </p>
-                        <p>
-                        {{ form.password(type ="password" , placeholder = "password") }}
-                        {% for error in form.password.errors %}
-                        <span style="color: red;">[{{ error }}]</span>
-                        {% endfor %}
-                        </p>
+<div class="register-page">
+    <div class="form">
+        <form action="" method="post" class="register-form">
+            {{ form.hidden_tag() }}
+            <p>
+                {{ form.username(type="text" , placeholder = "username") }} {% for error in form.username.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+                {% endfor %}
+            </p>
+            <p>
+                {{ form.email(type ="text" , placeholder = "email") }} {% for error in form.email.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+                {% endfor %}
+            </p>
+            <p>
+                {{ form.password(type ="password" , placeholder = "password") }} {% for error in form.password.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+                {% endfor %}
+            </p>
 
-                        <p>
-                            
-                        {{ form.password2(type ="password" , placeholder = "Repeat password") }}
+            <p>
 
-                        {% for error in form.password2.errors %}
-                        <span style="color: red;">[{{ error }}]</span>
-                        {% endfor %}
-                        </p>
-                                
-                        <p>{{ form.submit(type = "submit") }}</p>
-                </form>
-    
-                <p class = "warnings"> Already Registered? <a href="{{ url_for('home.login') }}"> Login </a> </p>
-    
+                {{ form.password2(type ="password" , placeholder = "Repeat password") }} {% for error in form.password2.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+                {% endfor %}
+            </p>
+
+            <p>{{ form.submit(type = "submit") }}</p>
+        </form>
+
+        <p class="warnings"> Already Registered?
+            <a href="{{ url_for('home.login') }}"> Login </a>
+        </p>
+
     </div>
 </div>

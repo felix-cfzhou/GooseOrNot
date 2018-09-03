@@ -1,6 +1,5 @@
 <head>
     <style>
-
         @import url(https://fonts.googleapis.com/css?family=Roboto:300);
 
         .login-page {
@@ -8,6 +7,7 @@
             padding: 8% 0 0;
             margin: auto;
         }
+
         .form {
             position: relative;
             z-index: 1;
@@ -18,6 +18,7 @@
             text-align: center;
             box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
         }
+
         .form input {
             font-family: "Roboto", sans-serif;
             outline: 0;
@@ -30,64 +31,66 @@
             font-size: 18px;
         }
 
-        input[type = submit]{
-            background-color:#2196F3;
-            color:white;
+        input[type=submit] {
+            background-color: #2196F3;
+            color: white;
             cursor: pointer;
             margin-top: 15px
         }
-        input[type = submit]:hover{
-            background-color:#128aea;
+
+        input[type=submit]:hover {
+            background-color: #128aea;
 
         }
-        .warnings{
+
+        .warnings {
             font-size: 16px;
         }
-        
-        
-        
+
+
+
         .remember1 {
-            float:left;
-            
-            
+            float: left;
+
+
         }
 
         .remember2 {
-            float:left;
+            float: left;
             margin-left: 10px;
-        
+
         }
 
         input[type=checkbox].css-checkbox {
             position: absolute;
             overflow: hidden;
             clip: rect(0 0 0 0);
-            height:1px;
-            width:1px;
-            margin:-1px;
-            padding:0;
-            border:0;
+            height: 1px;
+            width: 1px;
+            margin: -1px;
+            padding: 0;
+            border: 0;
         }
 
-        input[type=checkbox].css-checkbox + label.css-label {
-            padding-left:20px;
-            height:15px;
-            display:inline-block;
-            line-height:15px;
-            background-repeat:no-repeat;
+        input[type=checkbox].css-checkbox+label.css-label {
+            padding-left: 20px;
+            height: 15px;
+            display: inline-block;
+            line-height: 15px;
+            background-repeat: no-repeat;
             background-position: 0 0;
-            font-size:15px;
-            vertical-align:middle;
-            cursor:pointer;
+            font-size: 15px;
+            vertical-align: middle;
+            cursor: pointer;
         }
 
-        input[type=checkbox].css-checkbox:checked + label.css-label {
+        input[type=checkbox].css-checkbox:checked+label.css-label {
             background-position: 0 -15px;
         }
 
-        .css-label{
-            background-image:url(http://csscheckbox.com/checkboxes/lite-blue-check.png);
-        } 
+        .css-label {
+            background-image: url(http://csscheckbox.com/checkboxes/lite-blue-check.png);
+        }
 
         body {
             background: #3ea2f2;
@@ -99,45 +102,44 @@
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
         }
-    
-
-
     </style>
 </head>
 
 
-<div class = "login-page">
-    <div class = "form">
-            <form action="" method="post" class = "login-form">
-                    {{ form.hidden_tag() }}
-                    <p>
-                    {{ form.username(type="text" , placeholder = "username") }}
-                    </p>
-                    <p>
-                    {{ form.password(type ="password" , placeholder = "password") }}
-                    </p>
-                    <div class = "remember">
-                            <table>
+<div class="login-page">
+    <div class="form">
+        <form action="" method="post" class="login-form">
+            {{ form.hidden_tag() }}
+            <p>
+                {{ form.username(type="text" , placeholder = "username") }}
+            </p>
+            <p>
+                {{ form.password(type ="password" , placeholder = "password") }}
+            </p>
+            <div class="remember">
+                <table>
 
-                                <tr>
-                                    <td>
+                    <tr>
+                        <td>
 
-                                            {{ form.remember_me(class = "css-checkbox", type = "checkbox") }}
-                                            {{ form.remember_me.label(for = "remember_me", class = "css-label") }}
+                            {{ form.remember_me(class = "css-checkbox", type = "checkbox") }} {{ form.remember_me.label(for = "remember_me", class =
+                            "css-label") }}
 
 
-                                    </td>
+                        </td>
 
-                                </tr>
-                            
-                            </table>
-                    </div>                   
-                    <p>{{ form.submit(type = "submit") }}</p>
-                </form>
-                <p class = "warnings"> New User? <a href="{{ url_for('home.register') }}"> Click to Register </a> </p>
-                <p class = "warnings"> Forgot Your Password? <a href="{{ url_for('home.reset_password_request') }}"> Click to Reset </a> </p>
+                    </tr>
+
+                </table>
+            </div>
+            <p>{{ form.submit(type = "submit") }}</p>
+        </form>
+        <p class="warnings"> New User?
+            <a href="{{ url_for('home.register') }}"> Click to Register </a>
+        </p>
+        <p class="warnings"> Forgot Your Password?
+            <a href="{{ url_for('home.reset_password_request') }}"> Click to Reset </a>
+        </p>
 
     </div>
 </div>
-
-
