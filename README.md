@@ -3,6 +3,10 @@ GooseOrNot allows the user to upload a photo and decides whether that photo cont
 
 It features a loosely coupled front-end and back-end and communicates solely through REST endpoints.
 
+## Contributors
+A special thanks to:
+- [Michale He: BATMOOSEMIKE](https://github.com/BATMOOSEMIKE)
+
 ## Deployment
 ### Heroku
 Not a particular fan of heroku but it does save me the work of manually configuring my AWS instance for this project.
