@@ -118,7 +118,7 @@
             </p>
             <p>
                 {{ form.password(type ="password" , placeholder = "password") }}
-                {% for error in form.password %}
+                {% for error in form.password.errors %}
                     <span style="color: red;">[{{ error }}]</span>
                 {% endfor %}
             </p>

@@ -41,7 +41,7 @@ def login():
             return redirect(url_for('home.login'))
 
         else:
-            login_user(user)
+            login_user(user, remember=form.remember_me.data)
             return redirect(url_for('webapp.index'))
     else:
         return render_template('login.html', title='Sign In', form=form)
