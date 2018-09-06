@@ -5,7 +5,7 @@ It features a loosely coupled front-end and back-end and communicates solely thr
 
 ## Contributors
 A special thanks to:
-- [Michale He: BATMOOSEMIKE](https://github.com/BATMOOSEMIKE)
+- [Michael He: BATMOOSEMIKE](https://github.com/BATMOOSEMIKE)
 
 ## Deployment
 ### Heroku
