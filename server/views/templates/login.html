@@ -89,7 +89,7 @@
         }
 
         .css-label {
-            background-image: url(http://csscheckbox.com/checkboxes/lite-blue-check.png);
+            background-image: url(https://csscheckbox.com/checkboxes/lite-blue-check.png);
         }
 
         body {
@@ -112,9 +112,15 @@
             {{ form.hidden_tag() }}
             <p>
                 {{ form.username(type="text" , placeholder = "username") }}
+                {% for error in form.username.errors %}
+                    <span style="color: red;">[{{ error }}]</span>
+                {% endfor %}
             </p>
             <p>
                 {{ form.password(type ="password" , placeholder = "password") }}
+                {% for error in form.password.errors %}
+                    <span style="color: red;">[{{ error }}]</span>
+                {% endfor %}
             </p>
             <div class="remember">
                 <table>

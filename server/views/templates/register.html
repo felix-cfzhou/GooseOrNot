@@ -66,25 +66,29 @@
         <form action="" method="post" class="register-form">
             {{ form.hidden_tag() }}
             <p>
-                {{ form.username(type="text" , placeholder = "username") }} {% for error in form.username.errors %}
-                <span style="color: red;">[{{ error }}]</span>
+                {{ form.username(type="text" , placeholder = "username") }}
+                {% for error in form.username.errors %}
+                    <span style="color: red;">[{{ error }}]</span>
                 {% endfor %}
             </p>
             <p>
-                {{ form.email(type ="text" , placeholder = "email") }} {% for error in form.email.errors %}
-                <span style="color: red;">[{{ error }}]</span>
+                {{ form.email(type ="text" , placeholder = "email") }}
+                {% for error in form.email.errors %}
+                    <span style="color: red;">[{{ error }}]</span>
                 {% endfor %}
             </p>
             <p>
-                {{ form.password(type ="password" , placeholder = "password") }} {% for error in form.password.errors %}
-                <span style="color: red;">[{{ error }}]</span>
+                {{ form.password(type ="password" , placeholder = "password") }}
+                {% for error in form.password.errors %}
+                    <span style="color: red;">[{{ error }}]</span>
                 {% endfor %}
             </p>
 
             <p>
 
-                {{ form.password2(type ="password" , placeholder = "Repeat password") }} {% for error in form.password2.errors %}
-                <span style="color: red;">[{{ error }}]</span>
+                {{ form.password2(type ="password" , placeholder = "Repeat password") }}
+                {% for error in form.password2.errors %}
+                    <span style="color: red;">[{{ error }}]</span>
                 {% endfor %}
             </p>
 
