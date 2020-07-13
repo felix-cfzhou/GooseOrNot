@@ -19,6 +19,15 @@ class Image(db.Model):
             db.Integer,
             db.ForeignKey('users.id', name='FK_users_images')
             )
+    tasks = db.relationship(
+            'Task',
+            backref='image',
+            lazy='dynamic'
+            )
+    is_goose = db.Column(
+            db.Boolean,
+            nullable=True,
+            )
     url = db.Column(
             db.String(),
             nullable=False,

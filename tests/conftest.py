@@ -3,13 +3,14 @@ from os import path
 import pytest
 
 from flask_migrate import upgrade, downgrade
+from flask_login import login_user, logout_user
 from fakeredis import FakeStrictRedis
 from rq import Queue
 
 from server.factory import create_app
 from server.database import db as _db
 from server.models.user import User
-from server.models.image import Image  # noqa: F401
+from server.models.image import Image
 from server.models.task import Task  # noqa: F401
 from config import TestingConfig
 
@@ -24,7 +25,7 @@ def goose_pic_filename():
 
 @pytest.fixture(scope='session')
 def notgoose_pic_filename():
-    return path.join(curr_dir, 'data/fractal_background.jpg')
+    return path.join(curr_dir, 'data/selfie.jpg')
 
 
 @pytest.fixture(scope='session')
@@ -37,7 +38,7 @@ def app(request):
     '''Session-wide test application'''
     app = create_app(TestingConfig)
 
-    ctx = app.app_context()
+    ctx = app.test_request_context()
     ctx.push()
 
     def teardown():
@@ -101,3 +102,32 @@ def user(session, request):
 
     request.addfinalizer(teardown)
     return user
+
+
+@pytest.fixture()
+def logged_in_user(user, request):
+    login_user(user)
+
+    def teardown():
+        logout_user()
+
+    request.addfinalizer(teardown)
+    return user
+
+
+@pytest.fixture()
+def image(session, user, request):
+    image = Image(
+            file_name='goose_canada.jpg',
+            user_id=user.id,
+            url='http://example.com/goose_canada.jpg'
+            )
+    session.add(image)
+    session.commit()
+
+    def teardown():
+        session.delete(image)
+        session.commit()
+
+    request.addfinalizer(teardown)
+    return image

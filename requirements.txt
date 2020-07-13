@@ -11,6 +11,8 @@ backcall==0.1.0           # via ipython
 blinker==1.4              # via flask-mail
 boto3==1.7.66
 botocore==1.10.66         # via boto3, s3transfer
+certifi==2018.8.24        # via requests
+chardet==3.0.4            # via requests
 click==6.7                # via flask, rq
 decorator==4.3.0          # via ipython, traitlets
 docutils==0.14            # via botocore
@@ -26,6 +28,7 @@ flask-wtf==0.14.2
 flask==1.0.2
 greenlet==0.4.14          # via eventlet
 gunicorn==19.9.0
+idna==2.7                 # via requests
 ipython-genutils==0.2.0   # via traitlets
 ipython==6.4.0
 itsdangerous==0.24        # via flask
@@ -52,6 +55,7 @@ python-socketio==2.0.0    # via flask-socketio
 pytz==2018.5              # via flask-restful
 pyyaml==3.13              # via watchdog
 redis==2.10.6             # via rq
+requests==2.19.1
 rq==0.12.0
 s3transfer==0.1.13        # via boto3
 scipy==1.1.0              # via xgboost
@@ -60,6 +64,7 @@ simplejson==3.16.0
 six==1.11.0               # via flask-restful, prompt-toolkit, python-dateutil, python-engineio, python-socketio, traitlets
 sqlalchemy==1.2.9         # via alembic, flask-sqlalchemy
 traitlets==4.3.2          # via ipython
+urllib3==1.23             # via requests
 watchdog==0.8.3
 wcwidth==0.1.7            # via prompt-toolkit
 werkzeug==0.14.1          # via flask
